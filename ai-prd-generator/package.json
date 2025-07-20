@@ -24,6 +24,10 @@
       {
         "command": "ai-prd-generator.viewGraphPrd",
         "title": "View as Interactive Graph"
+      },
+      {
+        "command": "ai-prd-generator.setApiKey",
+        "title": "Set Gemini API Key"
       }
     ],
     "menus": {

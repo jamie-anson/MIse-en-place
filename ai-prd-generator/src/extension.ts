@@ -24,7 +24,7 @@ interface GeminiResponse {
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ai-prd-generator" is now active!');
 
-    const disposable = vscode.commands.registerCommand('ai-prd-generator.generatePrd', () => {
+    const disposable = vscode.commands.registerCommand('ai-prd-generator.generatePrd', async () => {
         const panel = vscode.window.createWebviewPanel(
             'prdGenerator',
             'PRD Generator',
@@ -49,9 +49,9 @@ export function activate(context: vscode.ExtensionContext) {
                     }, async (progress) => {
                         progress.report({ increment: 0, message: "Calling AI..." });
 
-                        const apiKey = vscode.workspace.getConfiguration('aiPrdGenerator').get('geminiApiKey', '');
+                        const apiKey = await context.secrets.get('geminiApiKey');
                         if (!apiKey) {
-                            vscode.window.showErrorMessage('Gemini API key is not set. Please set it in the extension settings.');
+                            vscode.window.showErrorMessage('Gemini API key is not set. Please run the "Set Gemini API Key" command.');
                             panel.webview.postMessage({ command: 'error', text: 'API Key is not set.' });
                             return;
                         }
@@ -147,7 +147,24 @@ export function activate(context: vscode.ExtensionContext) {
         });
     });
 
-    context.subscriptions.push(viewGraphPrdCommand);
+        context.subscriptions.push(viewGraphPrdCommand);
+
+    const setApiKeyCommand = vscode.commands.registerCommand('ai-prd-generator.setApiKey', async () => {
+        const apiKey = await vscode.window.showInputBox({
+            prompt: 'Enter your Gemini API Key',
+            password: true, // Mask the input
+            ignoreFocusOut: true // Keep open even if focus moves
+        });
+
+        if (apiKey) {
+            await context.secrets.store('geminiApiKey', apiKey);
+            vscode.window.showInformationMessage('Gemini API Key stored successfully.');
+        } else {
+            vscode.window.showWarningMessage('API Key was not entered.');
+        }
+    });
+
+    context.subscriptions.push(setApiKeyCommand);
 }
 
 async function callGeminiAPI(prompt: string, apiKey: string): Promise<PrdOutput | null> {
@@ -204,8 +221,9 @@ function getWebviewContent() {
         <textarea id="prompt-input" rows="10" cols="50" placeholder="Enter your product idea..."></textarea>
         <br>
         <button id="generate-button">Generate PRD</button>
+        <div id="loader" style="display: none; margin-top: 10px;">Generating...</div>
         <hr>
-        <h2>Response</h2>
+        <h2>Status</h2>
         <pre id="response-output"></pre>
 
         <script>
@@ -213,11 +231,16 @@ function getWebviewContent() {
             const generateButton = document.getElementById('generate-button');
             const promptInput = document.getElementById('prompt-input');
             const responseOutput = document.getElementById('response-output');
+            const loader = document.getElementById('loader');
 
             generateButton.addEventListener('click', () => {
                 const prompt = promptInput.value;
-                responseOutput.textContent = 'Generating...';
+                if (!prompt) { return; }
+                
+                responseOutput.textContent = '';
+                loader.style.display = 'block';
                 generateButton.disabled = true;
+
                 vscode.postMessage({
                     command: 'generate',
                     text: prompt
@@ -226,14 +249,15 @@ function getWebviewContent() {
 
             window.addEventListener('message', event => {
                 const message = event.data;
+                loader.style.display = 'none';
+                generateButton.disabled = false;
+
                 switch (message.command) {
                     case 'generationComplete':
                         responseOutput.textContent = 'Success! Files created:\n' + message.files.join('\n');
-                        generateButton.disabled = false;
                         break;
                     case 'error':
                         responseOutput.textContent = 'Error: ' + message.text;
-                        generateButton.disabled = false;
                         break;
                 }
             });
@@ -253,10 +277,12 @@ function getJsonViewerWebviewContent(scriptUri: vscode.Uri, styleUri: vscode.Uri
         <script src="${scriptUri}"></script>
     </head>
     <body>
-        <div id="json-container"></div>
+        <div id="loader">Loading...</div>
+        <div id="json-container" style="display: none;"></div>
         <script>
             const vscode = acquireVsCodeApi();
             const container = document.getElementById('json-container');
+            const loader = document.getElementById('loader');
 
             window.addEventListener('message', event => {
                 const message = event.data;
@@ -267,6 +293,8 @@ function getJsonViewerWebviewContent(scriptUri: vscode.Uri, styleUri: vscode.Uri
                         theme: 'dark',
                         expand: true
                     });
+                    loader.style.display = 'none';
+                    container.style.display = 'block';
                 }
             });
         </script>
@@ -283,19 +311,68 @@ function getGraphViewerWebviewContent(scriptUri: vscode.Uri): string {
         <title>Graph PRD Viewer</title>
         <script src="${scriptUri}"></script>
         <style>
-            body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+            body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
             #cy { width: 100%; height: 100%; display: block; }
+            #loader { padding: 20px; }
+            #properties-panel {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 300px;
+                background: rgba(40, 40, 40, 0.9);
+                color: white;
+                border: 1px solid #555;
+                border-radius: 8px;
+                padding: 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+                z-index: 10;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }
+            #properties-panel h3 {
+                margin-top: 0;
+                border-bottom: 1px solid #666;
+                padding-bottom: 10px;
+            }
+            #properties-content ul { list-style: none; padding: 0; margin: 0; }
+            #properties-content li { margin-bottom: 8px; }
+            #properties-content strong { color: #00aaff; }
+            #close-panel-btn {
+                background: #555;
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 15px;
+                width: 100%;
+            }
+            #close-panel-btn:hover { background: #777; }
         </style>
     </head>
     <body>
-        <div id="cy"></div>
+        <div id="loader">Loading Graph...</div>
+        <div id="cy" style="display: none;"></div>
+        <div id="properties-panel" style="display: none;">
+            <h3>Node Properties</h3>
+            <div id="properties-content"></div>
+            <button id="close-panel-btn">Close</button>
+        </div>
+
         <script>
             const vscode = acquireVsCodeApi();
             const cyContainer = document.getElementById('cy');
+            const loader = document.getElementById('loader');
+            const propertiesPanel = document.getElementById('properties-panel');
+            const propertiesContent = document.getElementById('properties-content');
+            const closePanelBtn = document.getElementById('close-panel-btn');
 
             window.addEventListener('message', event => {
                 const message = event.data;
                 if (message.command === 'renderGraph') {
+                    loader.style.display = 'none';
+                    cyContainer.style.display = 'block';
+
                     const cy = cytoscape({
                         container: cyContainer,
                         elements: message.data,
@@ -303,24 +380,34 @@ function getGraphViewerWebviewContent(scriptUri: vscode.Uri): string {
                             {
                                 selector: 'node',
                                 style: {
-                                    'background-color': '#666',
-                                    'label': 'data(label)'
+                                    'background-color': '#00aaff',
+                                    'label': 'data(label)',
+                                    'color': '#fff',
+                                    'text-outline-color': '#000',
+                                    'text-outline-width': 2
                                 }
                             },
                             {
                                 selector: 'edge',
                                 style: {
-                                    'width': 3,
-                                    'line-color': '#ccc',
-                                    'target-arrow-color': '#ccc',
+                                    'width': 2,
+                                    'line-color': '#666',
+                                    'target-arrow-color': '#666',
                                     'target-arrow-shape': 'triangle',
                                     'curve-style': 'bezier'
+                                }
+                            },
+                            {
+                                selector: 'node:selected',
+                                style: {
+                                    'border-width': 3,
+                                    'border-color': '#ffff00'
                                 }
                             }
                         ],
                         layout: {
                             name: 'cose',
-                            idealEdgeLength: 100,
+                            idealEdgeLength: 120,
                             nodeOverlap: 20,
                             refresh: 20,
                             fit: true,
@@ -336,6 +423,28 @@ function getGraphViewerWebviewContent(scriptUri: vscode.Uri): string {
                             coolingFactor: 0.95,
                             minTemp: 1.0
                         }
+                    });
+
+                    cy.on('tap', 'node', function(evt){
+                        const nodeData = evt.target.data();
+                        let contentHtml = '<ul>';
+                        for (const [key, value] of Object.entries(nodeData)) {
+                            contentHtml += '<li><strong>' + key + ':</strong> ' + JSON.stringify(value, null, 2) + '</li>';
+                        }
+                        contentHtml += '</ul>';
+                        
+                        propertiesContent.innerHTML = contentHtml;
+                        propertiesPanel.style.display = 'block';
+                    });
+
+                    cy.on('tap', function(evt){
+                        if (evt.target === cy) {
+                            propertiesPanel.style.display = 'none';
+                        }
+                    });
+
+                    closePanelBtn.addEventListener('click', () => {
+                        propertiesPanel.style.display = 'none';
                     });
                 }
             });

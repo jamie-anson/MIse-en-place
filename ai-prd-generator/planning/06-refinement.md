@@ -1,16 +1,25 @@
 # Phase 6: Refinement & Polish
 
-*Vibe: Make it shine!*
+## Objective
+To improve the overall user experience, security, and robustness of the extension by adding polish and addressing key items from the PRD.
 
-**Goal:** Improve the user experience, add loading states, and handle errors.
+## Key Enhancements
 
-**Steps:**
+### 1. UX Feedback: Loading Indicators
+- **Status:** Complete
+- **Description:** Added loading indicators to all webviews to provide clear feedback to the user during asynchronous operations.
+  - **Main Generation View:** A "Generating..." message is displayed and the button is disabled while the LLM is processing the request.
+  - **JSON Viewer:** A "Loading..." message is shown until the JSON data is parsed and rendered.
+  - **Graph Viewer:** A "Loading Graph..." message is shown until the Cytoscape graph is initialized and rendered.
 
-1.  **Loading Indicators:**
-    *   Ensure the webview's loading spinner is reliable.
-    *   Use `vscode.window.withProgress` for a native VS Code progress notification during the API call.
+### 2. Security: Secure API Key Storage
+- **Status:** Complete
+- **Description:** Migrated API key handling from `settings.json` to VS Code's secure `SecretStorage` API.
+  - Created a new command `ai-prd-generator.setApiKey` to prompt users for their key and store it securely.
+  - Updated the generation logic to retrieve the key from `SecretStorage`.
+  - Provided clear error messages guiding the user to set the key if it's missing.
 
-2.  **Error Handling:**
+### 3. Error Handling:
     *   Wrap API calls and file operations in `try/catch` blocks.
     *   Use `vscode.window.showErrorMessage` for critical failures.
     *   Use `vscode.window.showWarningMessage` for non-critical issues.
