@@ -31,12 +31,12 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.ViewColumn.One,
             {
                 enableScripts: true,
-                // Restrict the webview to only loading content from our extension's directory.
-                localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'media')]
+                localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'src', 'media')]
             }
         );
 
-        panel.webview.html = getWebviewContent();
+        const scriptUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src', 'media', 'main.js'));
+				panel.webview.html = getWebviewContent(scriptUri);
 
         // Handle messages from the webview
         panel.webview.onDidReceiveMessage(
@@ -208,7 +208,7 @@ async function callGeminiAPI(prompt: string, apiKey: string): Promise<PrdOutput 
     }
 }
 
-function getWebviewContent() {
+function getWebviewContent(scriptUri: vscode.Uri): string {
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -226,42 +226,7 @@ function getWebviewContent() {
         <h2>Status</h2>
         <pre id="response-output"></pre>
 
-        <script>
-            const vscode = acquireVsCodeApi();
-            const generateButton = document.getElementById('generate-button');
-            const promptInput = document.getElementById('prompt-input');
-            const responseOutput = document.getElementById('response-output');
-            const loader = document.getElementById('loader');
-
-            generateButton.addEventListener('click', () => {
-                const prompt = promptInput.value;
-                if (!prompt) { return; }
-                
-                responseOutput.textContent = '';
-                loader.style.display = 'block';
-                generateButton.disabled = true;
-
-                vscode.postMessage({
-                    command: 'generate',
-                    text: prompt
-                });
-            });
-
-            window.addEventListener('message', event => {
-                const message = event.data;
-                loader.style.display = 'none';
-                generateButton.disabled = false;
-
-                switch (message.command) {
-                    case 'generationComplete':
-                        responseOutput.textContent = 'Success! Files created:\n' + message.files.join('\n');
-                        break;
-                    case 'error':
-                        responseOutput.textContent = 'Error: ' + message.text;
-                        break;
-                }
-            });
-        </script>
+        <script src="${scriptUri}"></script>
     </body>
     </html>`;
 }

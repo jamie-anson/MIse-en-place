@@ -4,12 +4,17 @@
   "description": "AI-Powered PRD Generator",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.102.0"
+    "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:ai-prd-generator.generatePrd",
+    "onCommand:ai-prd-generator.viewJsonPrd",
+    "onCommand:ai-prd-generator.viewGraphPrd",
+    "onCommand:ai-prd-generator.setApiKey"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
