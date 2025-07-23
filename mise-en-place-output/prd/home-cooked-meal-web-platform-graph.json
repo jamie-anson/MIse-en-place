@@ -2,49 +2,49 @@
   "nodes": [
     {
       "data": {
-        "id": "R1",
-        "label": "Home Cook",
+        "id": "role1",
+        "label": "Cook",
         "type": "role"
       }
     },
     {
       "data": {
-        "id": "R2",
+        "id": "role2",
         "label": "Customer",
         "type": "role"
       }
     },
     {
       "data": {
-        "id": "F1",
+        "id": "feature1",
         "label": "Profile Management",
         "type": "feature"
       }
     },
     {
       "data": {
-        "id": "F2",
-        "label": "Menu and Photo Gallery",
+        "id": "feature2",
+        "label": "Menu and Photos",
         "type": "feature"
       }
     },
     {
       "data": {
-        "id": "F3",
+        "id": "feature3",
         "label": "Ordering System",
         "type": "feature"
       }
     },
     {
       "data": {
-        "id": "F4",
+        "id": "feature4",
         "label": "Payment System",
         "type": "feature"
       }
     },
     {
       "data": {
-        "id": "F5",
+        "id": "feature5",
         "label": "Review and Rating System",
         "type": "feature"
       }
@@ -53,74 +53,74 @@
   "edges": [
     {
       "data": {
-        "id": "E1",
-        "source": "R1",
-        "target": "F1",
-        "label": "manages"
-      }
-    },
-    {
-      "data": {
-        "id": "E2",
-        "source": "R1",
-        "target": "F2",
+        "id": "edge1",
+        "source": "role1",
+        "target": "feature1",
         "label": "uses"
       }
     },
     {
       "data": {
-        "id": "E3",
-        "source": "R1",
-        "target": "F3",
+        "id": "edge2",
+        "source": "role2",
+        "target": "feature1",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "edge3",
+        "source": "role1",
+        "target": "feature2",
         "label": "manages"
       }
     },
     {
       "data": {
-        "id": "E4",
-        "source": "R1",
-        "target": "F5",
-        "label": "receives"
-      }
-    },
-    {
-      "data": {
-        "id": "E5",
-        "source": "R2",
-        "target": "F1",
+        "id": "edge4",
+        "source": "role2",
+        "target": "feature2",
         "label": "views"
       }
     },
     {
       "data": {
-        "id": "E6",
-        "source": "R2",
-        "target": "F2",
+        "id": "edge5",
+        "source": "role2",
+        "target": "feature3",
         "label": "uses"
       }
     },
     {
       "data": {
-        "id": "E7",
-        "source": "R2",
-        "target": "F3",
+        "id": "edge6",
+        "source": "role1",
+        "target": "feature3",
         "label": "uses"
       }
     },
     {
       "data": {
-        "id": "E8",
-        "source": "R2",
-        "target": "F4",
+        "id": "edge7",
+        "source": "role2",
+        "target": "feature4",
         "label": "uses"
       }
     },
     {
       "data": {
-        "id": "E9",
-        "source": "R2",
-        "target": "F5",
-        "label": "provides"
+        "id": "edge8",
+        "source": "role2",
+        "target": "feature5",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "edge9",
+        "source": "role1",
+        "target": "feature5",
+        "label": "uses"
       }
     }
   ]
