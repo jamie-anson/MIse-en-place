@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "R1",
+        "label": "Home Cook",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "R2",
+        "label": "Customer",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "F1",
+        "label": "Profile Management",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F2",
+        "label": "Menu and Photo Gallery",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F3",
+        "label": "Ordering System",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F4",
+        "label": "Payment System",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F5",
+        "label": "Review and Rating System",
+        "type": "feature"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "E1",
+        "source": "R1",
+        "target": "F1",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "E2",
+        "source": "R1",
+        "target": "F2",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E3",
+        "source": "R1",
+        "target": "F3",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "E4",
+        "source": "R1",
+        "target": "F5",
+        "label": "receives"
+      }
+    },
+    {
+      "data": {
+        "id": "E5",
+        "source": "R2",
+        "target": "F1",
+        "label": "views"
+      }
+    },
+    {
+      "data": {
+        "id": "E6",
+        "source": "R2",
+        "target": "F2",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E7",
+        "source": "R2",
+        "target": "F3",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E8",
+        "source": "R2",
+        "target": "F4",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E9",
+        "source": "R2",
+        "target": "F5",
+        "label": "provides"
+      }
+    }
+  ]
+}
