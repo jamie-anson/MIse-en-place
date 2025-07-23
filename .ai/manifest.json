@@ -147,6 +147,190 @@
                 "mise-en-place-output/prd/local_home_cook_marketplace.md",
                 "mise-en-place-output/prd/local_home_cook_marketplace.json"
             ]
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-23T16:19:49.075Z",
+            "type": "prd",
+            "title": "Local Home-Cooked Meals Platform",
+            "purpose": "Create a web platform connecting local home cooks with neighborhood customers for authentic home-cooked meals.",
+            "goals": [
+                "Facilitate connections between home cooks and customers.",
+                "Provide a seamless ordering and payment experience.",
+                "Allow users to review and rate cooks and meals.",
+                "Encourage culinary diversity and community interaction."
+            ],
+            "userRoles": [
+                "Cook",
+                "Customer"
+            ],
+            "features": [
+                {
+                    "id": "feature_1",
+                    "title": "Cook Profiles",
+                    "requirements": [
+                        "Cooks can create and manage profiles showcasing their culinary skills.",
+                        "Profiles include biography, specialties, available menus, and photos."
+                    ]
+                },
+                {
+                    "id": "feature_2",
+                    "title": "Menus with Photos",
+                    "requirements": [
+                        "Cooks can upload photos of dishes and set availability.",
+                        "Each menu item includes a description, price, and dietary information."
+                    ]
+                },
+                {
+                    "id": "feature_3",
+                    "title": "Ordering and Payment System",
+                    "requirements": [
+                        "Secure online payment integration.",
+                        "Order tracking and history for customers and cooks."
+                    ]
+                },
+                {
+                    "id": "feature_4",
+                    "title": "Review and Rating System",
+                    "requirements": [
+                        "Customers can rate and review meals and cooks.",
+                        "Cooks can also review customers."
+                    ]
+                }
+            ],
+            "technicalRequirements": {
+                "frontend": {
+                    "stack": "React.js",
+                    "notes": "Should be responsive and user-friendly with a strong emphasis on UX/UI."
+                },
+                "backend": {
+                    "stack": "Node.js, Express",
+                    "notes": "RESTful services with secure authentication and session management."
+                },
+                "database": {
+                    "stack": "MongoDB",
+                    "notes": "Used for storing user profiles, menu items, orders, and reviews."
+                }
+            },
+            "nonFunctionalRequirements": {
+                "security": "SSL certificates for encryption. Secure user authentication process.",
+                "scalability": "Support a growing number of users and cooks joining the platform over time.",
+                "performance": "Fast load times and real-time updates for order status."
+            },
+            "userJourneys": {
+                "Cook": [
+                    "Register and set up profile.",
+                    "Create and manage menus with photos.",
+                    "Receive and fulfill orders.",
+                    "Manage reviews and ratings."
+                ],
+                "Customer": [
+                    "Register and browse cook profiles and menus.",
+                    "Place an order and make payment.",
+                    "Receive meal and submit a review."
+                ]
+            },
+            "successMetrics": [
+                "Number of active cooks and customers.",
+                "Total transactions processed monthly.",
+                "Average user rating for the platform."
+            ],
+            "futureEnhancements": [
+                "Mobile application for both iOS and Android.",
+                "AI-driven recommendations for customers based on past orders.",
+                "Subscription model for regular meal plans."
+            ]
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-23T17:03:56.164Z",
+            "type": "prd",
+            "title": "Home Cook Community Platform",
+            "purpose": "To connect local home cooks with individuals in their neighborhood who want to buy authentic, home-cooked meals.",
+            "goals": [
+                "Provide an easy-to-use platform for home cooks.",
+                "Enable customers to purchase meals easily.",
+                "Build a community-based review and rating system."
+            ],
+            "userRoles": [
+                "Home Cook",
+                "Customer"
+            ],
+            "features": [
+                {
+                    "id": "feature1",
+                    "title": "Profiles for Cooks",
+                    "requirements": [
+                        "Cooks can create and manage profiles.",
+                        "Upload profile pictures and a biography."
+                    ]
+                },
+                {
+                    "id": "feature2",
+                    "title": "Menu with Photos",
+                    "requirements": [
+                        "Create and manage menus with descriptions and prices.",
+                        "Upload food photos."
+                    ]
+                },
+                {
+                    "id": "feature3",
+                    "title": "Ordering and Payment System",
+                    "requirements": [
+                        "Customers can select and order meals.",
+                        "Payment via secure gateway."
+                    ]
+                },
+                {
+                    "id": "feature4",
+                    "title": "Review and Rating System",
+                    "requirements": [
+                        "Cooks and customers can leave reviews and ratings.",
+                        "Display average ratings on profiles and menu items."
+                    ]
+                }
+            ],
+            "technicalRequirements": {
+                "frontend": {
+                    "stack": "React.js",
+                    "notes": "Should be responsive and user-friendly."
+                },
+                "backend": {
+                    "stack": "Node.js, Express.js",
+                    "notes": "Ensure secure transaction and data handling."
+                },
+                "database": {
+                    "stack": "MongoDB",
+                    "notes": "Handle user profiles, menus, orders securely."
+                }
+            },
+            "nonFunctionalRequirements": {
+                "security": "Implement HTTPS and secure data storage.",
+                "scalability": "Able to handle increasing number of users and transactions.",
+                "performance": "Fast load times and quick transactions are crucial."
+            },
+            "userJourneys": {
+                "Home Cook": [
+                    "Register and create a profile.",
+                    "Upload menu and food images.",
+                    "Manage orders and reviews."
+                ],
+                "Customer": [
+                    "Browse cook profiles and menus.",
+                    "Place orders and make payments.",
+                    "Leave reviews and ratings."
+                ]
+            },
+            "successMetrics": [
+                "Number of active cooks and customers monthly.",
+                "Average ratings of meals.",
+                "Transaction volume growth rate."
+            ],
+            "futureEnhancements": [
+                "Mobile application development.",
+                "Subscription and loyalty programs.",
+                "Integration with local delivery services."
+            ]
         }
     ]
 }
