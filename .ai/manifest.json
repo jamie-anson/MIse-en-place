@@ -120,6 +120,33 @@
                 "json": "planning/Local Home Cook Meal Platform.json",
                 "graph": "planning/Local Home Cook Meal Platform.graph.json"
             }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-23T14:53:48.478Z",
+            "type": "prd",
+            "files": [
+                "mise-en-place-output/prd/local_home_cook_meal_platform.md",
+                "mise-en-place-output/prd/local_home_cook_meal_platform.json"
+            ]
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-23T15:00:39.699Z",
+            "type": "prd",
+            "files": [
+                "mise-en-place-output/prd/local_home_cook_meal_platform.md",
+                "mise-en-place-output/prd/local_home_cook_meal_platform.json"
+            ]
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-23T15:16:27.911Z",
+            "type": "prd",
+            "files": [
+                "mise-en-place-output/prd/local_home_cook_marketplace.md",
+                "mise-en-place-output/prd/local_home_cook_marketplace.json"
+            ]
         }
     ]
 }
