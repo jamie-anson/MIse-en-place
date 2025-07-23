@@ -1,0 +1,125 @@
+{
+    "artifacts": [
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T13:44:19.154Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Home-Cooked Meal Marketplace",
+            "formats": {
+                "markdown": "planning/Home-Cooked Meal Marketplace.md",
+                "json": "planning/Home-Cooked Meal Marketplace.json",
+                "graph": "planning/Home-Cooked Meal Marketplace.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T14:59:16.134Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Web Platform for Local Home-Cooked Meals",
+            "formats": {
+                "markdown": "planning/Web Platform for Local Home-Cooked Meals.md",
+                "json": "planning/Web Platform for Local Home-Cooked Meals.json",
+                "graph": "planning/Web Platform for Local Home-Cooked Meals.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:06:07.420Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home Cook Meal Marketplace",
+            "formats": {
+                "markdown": "planning/Local Home Cook Meal Marketplace.md",
+                "json": "planning/Local Home Cook Meal Marketplace.json",
+                "graph": "planning/Local Home Cook Meal Marketplace.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:31:57.662Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Neighborhood Home-Cooked Meals Platform",
+            "formats": {
+                "markdown": "planning/Neighborhood Home-Cooked Meals Platform.md",
+                "json": "planning/Neighborhood Home-Cooked Meals Platform.json",
+                "graph": "planning/Neighborhood Home-Cooked Meals Platform.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:37:19.013Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Home Cook Connection Platform",
+            "formats": {
+                "markdown": "planning/Home Cook Connection Platform.md",
+                "json": "planning/Home Cook Connection Platform.json",
+                "graph": "planning/Home Cook Connection Platform.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:38:04.515Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home-Cooked Meal Marketplace",
+            "formats": {
+                "markdown": "planning/Local Home-Cooked Meal Marketplace.md",
+                "json": "planning/Local Home-Cooked Meal Marketplace.json",
+                "graph": "planning/Local Home-Cooked Meal Marketplace.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:41:51.525Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home Cook Web Platform",
+            "formats": {
+                "markdown": "planning/Local Home Cook Web Platform.md",
+                "json": "planning/Local Home Cook Web Platform.json",
+                "graph": "planning/Local Home Cook Web Platform.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:47:53.907Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home Cook Connection Platform",
+            "formats": {
+                "markdown": "planning/Local Home Cook Connection Platform.md",
+                "json": "planning/Local Home Cook Connection Platform.json",
+                "graph": "planning/Local Home Cook Connection Platform.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:52:44.030Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home-Cooked Meal Platform",
+            "formats": {
+                "markdown": "planning/Local Home-Cooked Meal Platform.md",
+                "json": "planning/Local Home-Cooked Meal Platform.json",
+                "graph": "planning/Local Home-Cooked Meal Platform.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T15:55:22.830Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Web Platform for Local Home-Cooked Meals",
+            "formats": {
+                "markdown": "planning/Web Platform for Local Home-Cooked Meals.md",
+                "json": "planning/Web Platform for Local Home-Cooked Meals.json",
+                "graph": "planning/Web Platform for Local Home-Cooked Meals.graph.json"
+            }
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-22T16:10:06.710Z",
+            "type": "ProductRequirementsDocument",
+            "title": "Local Home Cook Meal Platform",
+            "formats": {
+                "markdown": "planning/Local Home Cook Meal Platform.md",
+                "json": "planning/Local Home Cook Meal Platform.json",
+                "graph": "planning/Local Home Cook Meal Platform.graph.json"
+            }
+        }
+    ]
+}
