@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleGeneratePrd`
 
-**Summary:** This async function handles the generation of product requirements documents and returns URIs for markdown and graph files.
+**Summary:** This async function handles the generation of a product using the provided message, extension context, and webview, returning URIs for markdown and graph files.
 
 **Signature:** `async function handleGeneratePrd(message: any, context: vscode.ExtensionContext, webview: vscode.Webview): Promise<{ md?: vscode.Uri, graph?: vscode.Uri } | undefined>`
 

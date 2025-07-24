@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getStyledPrdWebviewContent`
 
-**Summary:** This function returns a styled HTML content string based on the input product data in JSON format.
+**Summary:** This function returns a styled HTML content string based on the product data provided.
 
 **Signature:** `function getStyledPrdWebviewContent(prdData: PrdJson): string`
 
@@ -14,7 +14,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getStyledMdViewerWebviewContent`
 
-**Summary:** This function takes markdown content as input and returns a string of styled HTML content for a webview.
+**Summary:** This function takes a markdown content string and returns a styled HTML content for a webview.
 
 **Signature:** `function getStyledMdViewerWebviewContent(markdownContent: string): string`
 
@@ -34,7 +34,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getPrdJsonViewContent`
 
-**Summary:** This function retrieves and returns the content of a JSON object.
+**Summary:** This function retrieves the content of a JSON object for viewing.
 
 **Signature:** `function getPrdJsonViewContent(json: any)`
 
@@ -46,7 +46,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getContextCardViewContent`
 
-**Summary:** This function takes in a markdown string and a title, and returns the content for a context card view as a string.
+**Summary:** This function takes in a markdown string and a title, and returns a string representing the content for a context card view.
 
 **Signature:** `function getContextCardViewContent(markdown: string, title: string): string`
 

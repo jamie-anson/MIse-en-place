@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getGraphViewerWebviewContent`
 
-**Summary:** This function returns a string of webview content for displaying a graph using Cytoscape and Dagre libraries.
+**Summary:** This function returns a string of webview content for displaying a graph viewer using provided data and URIs for Cytoscape and Dagre libraries.
 
 **Signature:** `function getGraphViewerWebviewContent(graphData: any, cytoscapeUri: vscode.Uri, dagreUri: vscode.Uri, cyDagreUri: vscode.Uri): string`
 

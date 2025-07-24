@@ -6,18 +6,18 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class MarkdownFormatter`
 
-**Summary:** The class MarkdownFormatter is used for formatting text in Markdown syntax.
+**Summary:** This class is likely used to format text in Markdown syntax.
 
 **Signature:** `class MarkdownFormatter { ... }`
 
 **Methods:**
 
 - **`format`**
-  - **Summary:** This method formats an analysis result and returns it as a string, specifying the source file path.
+  - **Summary:** This method formats an analysis result and returns it as a string, using the source file path as a parameter.
   - **Signature:** `public format(result: AnalysisResult, sourceFilePath: string): string`
 
 - **`formatClass`**
-  - **Summary:** This method formats a class information object into an array of strings.
+  - **Summary:** This method formats a given class information object and returns an array of strings.
   - **Signature:** `private formatClass(classInfo: ClassInfo): string[] { ... }`
 
 - **`formatFunction`**
@@ -25,7 +25,7 @@ This document provides a high-level overview of the code structure, including ke
   - **Signature:** `private formatFunction(funcInfo: FunctionInfo): string[]`
 
 - **`formatMethod`**
-  - **Summary:** This method takes in information about a function and returns an array of formatted strings.
+  - **Summary:** This method takes a FunctionInfo object and returns an array of strings representing the formatted information.
   - **Signature:** `private formatMethod(methodInfo: FunctionInfo): string[]`
 
 ---

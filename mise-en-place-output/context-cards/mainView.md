@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getWebviewContent`
 
-**Summary:** This function retrieves the content of a webview panel using a specified script content.
+**Summary:** This function retrieves the content of a webview panel in Visual Studio Code using the provided script content and webview panel.
 
 **Signature:** `function getWebviewContent(scriptContent: string, webview: vscode.WebviewPanel): string`
 

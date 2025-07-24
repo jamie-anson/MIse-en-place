@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleApiKey`
 
-**Summary:** This function handles an API key within a VS Code extension's webview.
+**Summary:** This function handles an API key for a VS Code extension in an asynchronous manner.
 
 **Signature:** `async function handleApiKey(message: any, context: vscode.ExtensionContext, webview: vscode.Webview)`
 

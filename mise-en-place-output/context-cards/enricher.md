@@ -13,11 +13,11 @@ This document provides a high-level overview of the code structure, including ke
 **Methods:**
 
 - **`constructor`**
-  - **Summary:** This method creates a new instance of a class with a specified API key as a parameter.
+  - **Summary:** This method creates a new instance of a class with the specified API key.
   - **Signature:** `constructor(apiKey: string)`
 
 - **`enrich`**
-  - **Summary:** This method asynchronously enriches an analysis result and returns the enriched result.
+  - **Summary:** This method asynchronously enriches an analysis result and returns a promise of the enriched result.
   - **Signature:** `public async enrich(analysisResult: AnalysisResult): Promise<AnalysisResult>`
 
 - **`generateSummary`**

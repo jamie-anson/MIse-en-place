@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleContextCards`
 
-**Summary:** This function handles context cards in a VS Code extension by taking in a message, extension context, and webview as parameters.
+**Summary:** This function handles context cards in a VS Code extension by taking in a message, extension context, and webview.
 
 **Signature:** `async function handleContextCards(message: any, context: vscode.ExtensionContext, webview: vscode.Webview)`
 

@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerViewGraphCommand`
 
-**Summary:** This function registers a command in a Visual Studio Code extension context for viewing a graph.
+**Summary:** This function registers a command for viewing a graph in a Visual Studio Code extension.
 
 **Signature:** `function registerViewGraphCommand(context: vscode.ExtensionContext)`
 

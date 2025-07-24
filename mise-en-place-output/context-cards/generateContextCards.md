@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerGenerateContextCardsCommand`
 
-**Summary:** This function registers a command to generate context cards within a Visual Studio Code extension.
+**Summary:** This function registers a command to generate context cards in a Visual Studio Code extension.
 
 **Signature:** `function registerGenerateContextCardsCommand(context: vscode.ExtensionContext)`
 

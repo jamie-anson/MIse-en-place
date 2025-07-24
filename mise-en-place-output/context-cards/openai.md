@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `callOpenAiAPI`
 
-**Summary:** This function asynchronously calls the OpenAI API with a prompt and API key, returning a Promise that resolves to a PrdOutput or null.
+**Summary:** This asynchronous function calls the OpenAI API with a prompt and API key, returning a Promise that resolves with the output or null.
 
 **Signature:** `async function callOpenAiAPI(prompt: string, apiKey: string): Promise<PrdOutput | null>`
 

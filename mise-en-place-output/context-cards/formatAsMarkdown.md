@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `formatAsMarkdown`
 
-**Summary:** This function formats an analysis result as markdown and saves it to a specified file path.
+**Summary:** This function takes an AnalysisResult object and a file path as input, and returns the formatted content as a Markdown string.
 
 **Signature:** `function formatAsMarkdown(card: AnalysisResult, filePath: string): string`
 

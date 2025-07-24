@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleViewCommands`
 
-**Summary:** This function handles view commands by taking in a message and the last generated paths for markdown and graph files.
+**Summary:** This function handles view commands by taking in a message and last generated paths as parameters.
 
 **Signature:** `function handleViewCommands(message: any, lastGeneratedPaths: { md?: vscode.Uri, graph?: vscode.Uri } | undefined)`
 

@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerGeneratePrdCommand`
 
-**Summary:** This function registers a command for generating a new product in a Visual Studio Code extension.
+**Summary:** This function registers a command for generating a PRD (Product Requirements Document) in a Visual Studio Code extension.
 
 **Signature:** `function registerGeneratePrdCommand(context: vscode.ExtensionContext)`
 

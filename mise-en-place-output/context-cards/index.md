@@ -13,7 +13,7 @@ This document provides a high-level overview of the code structure, including ke
 **Methods:**
 
 - **`constructor`**
-  - **Summary:** This method creates a new instance of a class with specified workspace URI and extension context.
+  - **Summary:** This method creates a new instance of a class with private properties for the workspace URI and extension context.
   - **Signature:** `constructor(private workspaceUri: vscode.Uri, private context: vscode.ExtensionContext)`
 
 - **`generateAndSaveContextCards`**

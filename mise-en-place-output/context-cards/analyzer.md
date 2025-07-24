@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class CodeAnalyzer`
 
-**Summary:** The CodeAnalyzer class is responsible for analyzing code.
+**Summary:** This class likely analyzes and processes code in some way.
 
 **Signature:** `class CodeAnalyzer { ... }`
 
@@ -21,11 +21,11 @@ This document provides a high-level overview of the code structure, including ke
   - **Signature:** `public analyze(sourceCode: string): AnalysisResult`
 
 - **`findFunctions`**
-  - **Summary:** This method searches for functions within a syntax node and returns an array of function information and corresponding syntax nodes.
+  - **Summary:** This method searches for functions within a syntax node and returns an array of function information paired with the corresponding syntax node.
   - **Signature:** `private findFunctions(node: Parser.SyntaxNode): [FunctionInfo, Parser.SyntaxNode][]`
 
 - **`findClasses`**
-  - **Summary:** This method searches for classes within a given syntax node and returns an array of class information and corresponding syntax nodes.
+  - **Summary:** This method searches for classes within a syntax node and returns an array of class information and corresponding syntax nodes.
   - **Signature:** `private findClasses(node: Parser.SyntaxNode): [ClassInfo, Parser.SyntaxNode][]`
 
 - **`findMethodsInClass`**
@@ -33,14 +33,14 @@ This document provides a high-level overview of the code structure, including ke
   - **Signature:** `private findMethodsInClass(classNode: Parser.SyntaxNode): [FunctionInfo, Parser.SyntaxNode][] { ... }`
 
 - **`analyzeDependencies`**
-  - **Summary:** This method analyzes dependencies between functions and classes based on their corresponding syntax nodes.
+  - **Summary:** This method analyzes dependencies between functions and classes based on their syntax nodes.
   - **Signature:** `private analyzeDependencies(
     functionsWithNodes: [FunctionInfo, Parser.SyntaxNode][],
     classesWithNodes: [ClassInfo, Parser.SyntaxNode][]
   ): void { ... }`
 
 - **`getSignature`**
-  - **Summary:** This method retrieves the signature of a syntax node using the specified body field name.
+  - **Summary:** This method retrieves the signature of a syntax node using a specified body field name.
   - **Signature:** `private getSignature(node: Parser.SyntaxNode, bodyFieldName: string): string`
 
 ---

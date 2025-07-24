@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `activate`
 
-**Summary:** This function activates a Visual Studio Code extension by initializing its context.
+**Summary:** This function activates a Visual Studio Code extension.
 
 **Signature:** `function activate(context: vscode.ExtensionContext)`
 
@@ -14,7 +14,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `deactivate`
 
-**Summary:** This function deactivates a specific feature or functionality.
+**Summary:** This function deactivates a specific feature or function.
 
 **Signature:** `function deactivate()`
 
