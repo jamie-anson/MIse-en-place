@@ -1,0 +1,112 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "role1",
+        "label": "Home Cook",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "role2",
+        "label": "Customer",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "feature1",
+        "label": "User Profiles",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "feature2",
+        "label": "Menu Management",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "feature3",
+        "label": "Ordering and Payment System",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "feature4",
+        "label": "Review and Rating System",
+        "type": "feature"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "edge1",
+        "source": "role1",
+        "target": "feature1",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "edge2",
+        "source": "role1",
+        "target": "feature2",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "edge3",
+        "source": "role1",
+        "target": "feature3",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "edge4",
+        "source": "role1",
+        "target": "feature4",
+        "label": "views"
+      }
+    },
+    {
+      "data": {
+        "id": "edge5",
+        "source": "role2",
+        "target": "feature1",
+        "label": "views"
+      }
+    },
+    {
+      "data": {
+        "id": "edge6",
+        "source": "role2",
+        "target": "feature2",
+        "label": "views"
+      }
+    },
+    {
+      "data": {
+        "id": "edge7",
+        "source": "role2",
+        "target": "feature3",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "edge8",
+        "source": "role2",
+        "target": "feature4",
+        "label": "uses"
+      }
+    }
+  ]
+}
