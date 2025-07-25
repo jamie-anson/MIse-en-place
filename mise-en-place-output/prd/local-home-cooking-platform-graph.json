@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "Cook",
+        "label": "Cook",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "Customer",
+        "label": "Customer",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "F1",
+        "label": "Cook Profile Management",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F2",
+        "label": "Menu Creation and Management",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F3",
+        "label": "Order and Payment System",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F4",
+        "label": "Review and Rating System",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F5",
+        "label": "Customer Profile Management",
+        "type": "feature"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "E1",
+        "source": "Cook",
+        "target": "F1",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "E2",
+        "source": "Cook",
+        "target": "F2",
+        "label": "manages"
+      }
+    },
+    {
+      "data": {
+        "id": "E3",
+        "source": "Cook",
+        "target": "F3",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E4",
+        "source": "Cook",
+        "target": "F4",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E5",
+        "source": "Customer",
+        "target": "F3",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E6",
+        "source": "Customer",
+        "target": "F4",
+        "label": "uses"
+      }
+    },
+    {
+      "data": {
+        "id": "E7",
+        "source": "Customer",
+        "target": "F5",
+        "label": "manages"
+      }
+    }
+  ]
+}
