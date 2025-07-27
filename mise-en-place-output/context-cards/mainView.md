@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getWebviewContent`
 
-**Summary:** The function `getWebviewContent` generates and returns a string containing HTML content for a webview panel in a VS Code extension, utilizing the provided script URI for including necessary scripts.
+**Summary:** This function generates and returns the HTML content for a webview panel in a Visual Studio Code extension, utilizing a provided script URI to ensure the required scripts are correctly referenced within the webview for rendering the contact page interface.
 
 **Signature:** `function getWebviewContent(scriptUri: vscode.Uri, webview: vscode.WebviewPanel): string`
 
@@ -18,7 +18,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getNonce`
 
-**Summary:** The `getNonce()` function generates a unique, random string used to ensure security by preventing replay attacks or double submission of forms within the Review and Rating System.
+**Summary:** The `getNonce` function generates a unique, random nonce value likely used for enhancing security, such as preventing cross-site request forgery or other security vulnerabilities related to form submissions on the contact page.
 
 **Signature:** `function getNonce()`
 

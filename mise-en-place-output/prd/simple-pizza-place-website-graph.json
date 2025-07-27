@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "Owner",
+        "label": "Owner",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "Customer",
+        "label": "Customer",
+        "type": "role"
+      }
+    },
+    {
+      "data": {
+        "id": "F1",
+        "label": "Homepage",
+        "type": "feature"
+      }
+    },
+    {
+      "data": {
+        "id": "F2",
+        "label": "Contact Page",
+        "type": "feature"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "E1",
+        "source": "Customer",
+        "target": "F1",
+        "label": "views"
+      }
+    },
+    {
+      "data": {
+        "id": "E2",
+        "source": "Customer",
+        "target": "F2",
+        "label": "uses"
+      }
+    }
+  ]
+}

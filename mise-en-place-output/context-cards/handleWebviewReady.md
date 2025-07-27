@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleWebviewReady`
 
-**Summary:** The `handleWebviewReady` function is responsible for initializing and configuring a webview component when it becomes ready, facilitating its interaction with the VS Code extension context and ensuring seamless integration with the front-end/UI elements within the overall "Review and Rating System" on the Local Home Cooking platform.
+**Summary:** The `handleWebviewReady` function is designed to initialize communication between the VS Code webview and its host extension by handling the readiness message, with the broader aim of assisting developers in managing "Contact Page" functionalities.
 
 **Signature:** `async function handleWebviewReady(
     message: any,

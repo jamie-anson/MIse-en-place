@@ -2006,6 +2006,79 @@
                 "Develop a mobile app for iOS and Android.",
                 "Introduce social media integration for sharing experiences."
             ]
+        },
+        {
+            "agent": "ai-prd-generator",
+            "timestamp": "2025-07-25T15:58:33.256Z",
+            "type": "prd",
+            "title": "Simple Pizza Place Website",
+            "purpose": "To outline the requirements for a simple website for a pizza place using Express.js and in-memory SQLite.",
+            "goals": [
+                "Provide a simple and intuitive web presence for the pizza place.",
+                "Allow customers to view information about the pizza place and contact the owner through a simple form.",
+                "Keep the initial deployment lightweight and easy to maintain."
+            ],
+            "userRoles": [
+                "Owner",
+                "Customer"
+            ],
+            "features": [
+                {
+                    "id": "F1",
+                    "title": "Homepage",
+                    "requirements": [
+                        "Displays general information about the pizza place."
+                    ]
+                },
+                {
+                    "id": "F2",
+                    "title": "Contact Page",
+                    "requirements": [
+                        "Contact form with fields: subject, phone number, and message.",
+                        "Form fields must have the following IDs: subject, phone, message.",
+                        "Submissions are stored using in-memory SQLite during server runtime."
+                    ]
+                }
+            ],
+            "technicalRequirements": {
+                "frontend": {
+                    "stack": "HTML, CSS",
+                    "notes": "Simple, static HTML pages with minimal styling."
+                },
+                "backend": {
+                    "stack": "Express.js",
+                    "notes": "Use Express to serve static pages and handle form submissions."
+                },
+                "database": {
+                    "stack": "SQLite (in-memory)",
+                    "notes": "Store form submissions in-memory; data does not persist on restart."
+                }
+            },
+            "nonFunctionalRequirements": {
+                "security": "Basic input validation for the contact form.",
+                "scalability": "Designed for low traffic and easy scaling with static site hosting and minimal backend.",
+                "performance": "Quick load times with minimal dependencies."
+            },
+            "userJourneys": {
+                "Owner": [
+                    "Updates website content and checks form submissions stored during the current server session."
+                ],
+                "Customer": [
+                    "Visits the homepage to get pizza place information.",
+                    "Navigates to the contact page.",
+                    "Fills in the form fields (subject, phone, message) and submits the form."
+                ]
+            },
+            "successMetrics": [
+                "Website loads successfully in major browsers.",
+                "Contact form submissions are received and stored in memory.",
+                "Users can navigate between homepage and contact page without issues."
+            ],
+            "futureEnhancements": [
+                "Persist form data in a permanent database.",
+                "Add more pages such as a menu or about page.",
+                "Enhance styling with a CSS framework or design overhaul."
+            ]
         }
     ]
 }

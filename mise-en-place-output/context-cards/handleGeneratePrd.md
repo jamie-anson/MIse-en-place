@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleGeneratePrd`
 
-**Summary:** The `handleGeneratePrd` function is responsible for generating and returning URLs for markdown (.md) and graph files within a Visual Studio Code extension context, likely related to facilitating the representation of data or documents within the broader "Review and Rating System" module.
+**Summary:** The `handleGeneratePrd` function processes a request to generate a product requirements document (PRD) within a Visual Studio Code extension environment, returning URIs for the document and an associated graph if successfully created.
 
 **Signature:** `async function handleGeneratePrd(message: any, context: vscode.ExtensionContext, webview: vscode.Webview): Promise<{ md?: vscode.Uri, graph?: vscode.Uri } | undefined>`
 

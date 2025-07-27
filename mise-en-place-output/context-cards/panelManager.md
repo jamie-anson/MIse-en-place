@@ -6,25 +6,25 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class PanelManager`
 
-**Summary:** The `PanelManager` class plays a crucial role in the "Review and Rating System" by organizing and controlling the display panels for user interactions, thereby enhancing the user experience in submitting and viewing reviews.
+**Summary:** The `PanelManager` class orchestrates the dynamic management and display of user interface panels on the pizza place website, offering a seamless transition between the homepage and the contact form to enhance user interaction.
 
 **Signature:** `class PanelManager { ... }`
 
 **Methods:**
 
 - **`constructor`**
-  - **Summary:** The constructor method initializes the `Review and Rating System` by setting up the necessary context and message routing components, which are critical for facilitating interactions and review management within the Local Home Cooking platform.
+  - **Summary:** This constructor initializes the "Contact Page" feature by setting up the necessary context and message routing to manage contact form submissions.
   - **Signature:** `constructor(
         private readonly context: vscode.ExtensionContext,
         private readonly router: MessageRouter
     )`
 
 - **`createAndShowPanel`**
-  - **Summary:** The method `createAndShowPanel()` initializes and displays the UI component that allows users to submit and view ratings and reviews, playing a crucial role in facilitating user feedback within the "Review and Rating System" module.
+  - **Summary:** The `createAndShowPanel` method asynchronously initializes and displays the contact form interface, enabling interaction with the customer submission system within the pizza place's website.
   - **Signature:** `public async createAndShowPanel(): Promise<void>`
 
 - **`setupWebview`**
-  - **Summary:** The `setupWebview` method is responsible for initializing and configuring the webview interface used to display and capture user ratings and reviews within the "Review and Rating System" on the Local Home Cooking platform.
+  - **Summary:** The `setupWebview` method initializes and configures a web view interface for displaying the contact form within the "Contact Page" feature, facilitating user interaction and form submission.
   - **Signature:** `private async setupWebview(): Promise<void>`
 
 ---

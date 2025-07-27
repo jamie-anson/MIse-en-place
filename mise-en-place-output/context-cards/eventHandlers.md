@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `initializeEventHandlers`
 
-**Summary:** The function `initializeEventHandlers` sets up event listeners within the VSCode extension environment to facilitate the interaction and integration with the Local Home Cooking platform’s Review and Rating System module.
+**Summary:** The `initializeEventHandlers` function sets up event listeners for specific actions within the Visual Studio Code environment to facilitate interactions with the contact form feature.
 
 **Signature:** `function initializeEventHandlers(vscode: any): void`
 

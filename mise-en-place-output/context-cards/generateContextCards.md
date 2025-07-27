@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerGenerateContextCardsCommand`
 
-**Summary:** The `registerGenerateContextCardsCommand` function registers a command within the Visual Studio Code extension context that allows users to generate context cards, facilitating integration with the "Review and Rating System" for enhanced user navigation and interaction.
+**Summary:** The function `registerGenerateContextCardsCommand` registers a command in a Visual Studio Code extension to generate context cards, facilitating the display of structured context information within the editor environment.
 
 **Signature:** `function registerGenerateContextCardsCommand(context: vscode.ExtensionContext)`
 

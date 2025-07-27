@@ -6,8 +6,20 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleViewCommands`
 
-**Summary:** The `handleViewCommands` function manages user-triggered view commands related to displaying markdown or graph data, utilizing the paths from the last generated output within the context of the review and rating system module.
+**Summary:** The `handleViewCommands` function processes view-related commands from a given message, determining if the command pertains to viewing contact form submissions and subsequently triggering the appropriate response to display these records.
 
-**Signature:** `function handleViewCommands(message: any, lastGeneratedPaths: { md?: vscode.Uri, graph?: vscode.Uri } | undefined)`
+**Signature:** `async function handleViewCommands(message: any): Promise<boolean>`
+
+**Dependencies:**
+
+- `findCorrespondingGraphFile`
+
+---
+
+### `findCorrespondingGraphFile`
+
+**Summary:** The function `findCorrespondingGraphFile` asynchronously searches for and returns the URI of a graph file related to a given production file within a Visual Studio Code extension setup, or `undefined` if no corresponding file is found.
+
+**Signature:** `async function findCorrespondingGraphFile(prdFile: vscode.Uri): Promise<string | undefined>`
 
 ---

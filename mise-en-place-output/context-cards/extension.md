@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `activate`
 
-**Summary:** The `activate` function serves as the entry point for initializing the Visual Studio Code extension, setting up necessary configurations, event listeners, and commands that form part of the "Review and Rating System" module's integration within the development environment.
+**Summary:** The `activate` function initializes the VS Code extension's environment, enabling it to enhance development productivity by providing tools and configurations specific to working on the "Contact Page" feature for the pizza place’s website.
 
 **Signature:** `function activate(context: vscode.ExtensionContext)`
 
@@ -14,7 +14,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `deactivate`
 
-**Summary:** The `deactivate` function likely serves to disable or deactivate specific functionality or features, such as user accounts or profile visibility, within the Local Home Cooking platform's modules.
+**Summary:** The `deactivate()` function likely serves to disable or remove functionality related to form submissions on the contact page, particularly in preparation for server shutdown or restart, to prevent data inconsistencies given the temporary in-memory storage constraint.
 
 **Signature:** `function deactivate()`
 

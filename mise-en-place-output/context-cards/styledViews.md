@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getStyledPrdWebviewContent`
 
-**Summary:** The `getStyledPrdWebviewContent` function generates and returns an HTML string formatted with styling for displaying product information on a web view, utilizing the provided `PrdJson` product data.
+**Summary:** The `getStyledPrdWebviewContent` function generates and returns a styled HTML string tailored for presenting a product in a web view, using the provided product data (`prdData`).
 
 **Signature:** `function getStyledPrdWebviewContent(prdData: PrdJson): string`
 
@@ -14,7 +14,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getStyledMdViewerWebviewContent`
 
-**Summary:** The `getStyledMdViewerWebviewContent` function generates a string of HTML content styled for a web viewer, converting and displaying inputted markdown content as part of the user interface in a review and rating system context.
+**Summary:** The function `getStyledMdViewerWebviewContent` generates a fully-styled HTML content string for rendering markdown content within a webview context, ensuring a consistent visual presentation of the markdown data.
 
 **Signature:** `function getStyledMdViewerWebviewContent(markdownContent: string): string`
 
@@ -22,7 +22,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getPrdMarkdownViewContent`
 
-**Summary:** The `getPrdMarkdownViewContent` function processes a given markdown string to generate and return the content formatted for viewing within the Product Requirements Document (PRD) Review and Rating System context, ensuring the relevance and readability of the information presented.
+**Summary:** The `getPrdMarkdownViewContent` function is designed to process and extract relevant content from a provided markdown string, which is used to dynamically render sections of the contact page feature documentation within the pizza place's website interface.
 
 **Signature:** `function getPrdMarkdownViewContent(markdown: string)`
 
@@ -34,7 +34,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getPrdJsonViewContent`
 
-**Summary:** The `getPrdJsonViewContent` function is likely responsible for generating or formatting JSON content related to product reviews or ratings, which would be displayed within the "Review and Rating System" of the Local Home Cooking platform.
+**Summary:** The `getPrdJsonViewContent` function retrieves the JSON representation of the contact form submission data for viewing or processing within the "Contact Page" module.
 
 **Signature:** `function getPrdJsonViewContent(json: any)`
 
@@ -46,7 +46,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getContextCardViewContent`
 
-**Summary:** The `getContextCardViewContent` function extracts and returns the relevant content associated with a specified title from a given markdown string, likely facilitating dynamic display of specific context sections within the "Review and Rating System" documentation.
+**Summary:** The `getContextCardViewContent` function retrieves and formats the content of a specific contextual section, identified by a given title, from a larger markdown string.
 
 **Signature:** `function getContextCardViewContent(markdown: string, title: string): string`
 

@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerViewPrdCommand`
 
-**Summary:** The `registerViewPrdCommand` function integrates a command into the Visual Studio Code extension's context to facilitate viewing product documentation directly within the development environment, streamlining access to contextual information.
+**Summary:** The `registerViewPrdCommand` function registers a command within a VS Code extension context, enabling the functionality to view form submissions stored in the in-memory SQLite database.
 
 **Signature:** `function registerViewPrdCommand(context: vscode.ExtensionContext)`
 

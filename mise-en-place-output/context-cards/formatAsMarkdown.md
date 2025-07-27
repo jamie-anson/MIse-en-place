@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `formatAsMarkdown`
 
-**Summary:** The `formatAsMarkdown` function converts an `AnalysisResult` object into a markdown-formatted string, incorporating the file path for contextual reference within the documentation.
+**Summary:** The `formatAsMarkdown` function converts an `AnalysisResult` object into a markdown-formatted string, associating it with the specified file path to facilitate the documentation of analysis results for the pizza place's contact page feature.
 
 **Signature:** `function formatAsMarkdown(card: AnalysisResult, filePath: string): string`
 

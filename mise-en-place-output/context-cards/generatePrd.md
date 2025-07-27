@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `registerGeneratePrdCommand`
 
-**Summary:** The `registerGeneratePrdCommand` function registers a Visual Studio Code command within the "Review and Rating System" module, likely to facilitate generating a production-ready document or setup, enhancing development workflow efficiencies related to managing and implementing review functionalities.
+**Summary:** The function `registerGeneratePrdCommand` is intended to integrate a command within the VS Code extension that allows users to generate a Product Requirements Document (PRD) for features like the "Contact Form Submission Storage" and "Contact Page" modules, by utilizing the current context of the extension's operations.
 
 **Signature:** `function registerGeneratePrdCommand(context: vscode.ExtensionContext)`
 

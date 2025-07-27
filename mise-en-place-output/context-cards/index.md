@@ -6,18 +6,18 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class ContextCardGenerator`
 
-**Summary:** The `ContextCardGenerator` class is likely responsible for dynamically creating and displaying contextual information cards within the "Review and Rating System" module, enhancing user interaction by summarizing relevant review and rating data for transparency and trust-building on the Local Home Cooking platform.
+**Summary:** The `ContextCardGenerator` class is responsible for producing informative summaries or overviews of different modules and their roles within the broader pizza place website, aiding in the understanding and documentation of the project's structure and functionality.
 
 **Signature:** `class ContextCardGenerator { ... }`
 
 **Methods:**
 
 - **`constructor`**
-  - **Summary:** The constructor initializes the `Review and Rating System` module's backend by setting up the workspace URI and extension context, which are crucial for managing the local home cooking platform's data handling and user interactions within Visual Studio Code.
+  - **Summary:** The constructor initializes a new instance of the class with specified workspace and extension context, likely setting up necessary configurations for managing contact page features within a Visual Studio Code extension.
   - **Signature:** `constructor(private workspaceUri: vscode.Uri, private context: vscode.ExtensionContext)`
 
 - **`generateAndSaveContextCards`**
-  - **Summary:** The `generateAndSaveContextCards` method asynchronously creates and stores contextual information cards, likely for user profiles or reviews, enhancing the user experience by providing quick access to relevant, structured data within the "Review and Rating System" module.
+  - **Summary:** The `generateAndSaveContextCards` method asynchronously constructs and temporarily stores contextual information summaries or "cards" in the in-memory database, facilitating quick retrieval and presentation of customer contact form submissions while the server is active.
   - **Signature:** `public async generateAndSaveContextCards(): Promise<void>`
 
 ---

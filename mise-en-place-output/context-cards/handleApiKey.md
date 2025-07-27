@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleApiKey`
 
-**Summary:** The function `handleApiKey` asynchronously processes API key-related messages, utilizing the VS Code extension context and webview to facilitate secure communication and data handling within the Review and Rating System module.
+**Summary:** The function `handleApiKey` processes API key management tasks within a VS Code extension's webview, which may involve capturing or handling API key inputs in the context of the extension's functionality.
 
 **Signature:** `async function handleApiKey(message: any, context: vscode.ExtensionContext, webview: vscode.Webview)`
 

@@ -6,23 +6,22 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class MessageRouter`
 
-**Summary:** The `MessageRouter` class in the "Review and Rating System" manages the routing logic for real-time notifications, alerting users to new reviews and ratings as part of the feedback process following transactions.
+**Summary:** The `MessageRouter` class orchestrates the routing of contact form submissions within the Express.js framework, ensuring data is correctly validated and stored in the in-memory SQLite database, thereby facilitating effective customer communication for the pizza place.
 
 **Signature:** `class MessageRouter { ... }`
 
 **Methods:**
 
 - **`register`**
-  - **Summary:** The `register` method in the Review and Rating System module allows for the registration of message handlers to process specific commands, facilitating the execution of review-related operations within the system's communication framework.
+  - **Summary:** The `register` method facilitates the registration of a command and its associated handler within the "Contact Form Submission Storage" module, enabling specific processing logic to be executed upon receiving a matching form submission in the context of querying or interacting with stored data in the in-memory SQLite database.
   - **Signature:** `public register(command: string, handler: MessageHandler): void`
 
 - **`route`**
-  - **Summary:** The `route` method in the "Review and Rating System" manages the routing logic for handling communication between the frontend webview and backend context within a Visual Studio Code extension, potentially facilitating the display and interaction of reviews and ratings data.
+  - **Summary:** The `route` method asynchronously manages incoming messages within the Visual Studio Code extension context, facilitating interactions between the extension's components and the contact page's webview interface.
   - **Signature:** `public async route(
         message: any,
         context: vscode.ExtensionContext,
-        webview: vscode.Webview,
-        lastGeneratedPaths?: { md?: vscode.Uri, graph?: vscode.Uri }
+        webview: vscode.Webview
     ): Promise<any>`
 
 ---

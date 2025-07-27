@@ -1,80 +1,45 @@
-# Data Flow Diagram for Local Home Cooking Platform
+Below is a comprehensive data flow diagram in Markdown format for the Simple Pizza Place Website based on the provided PRD.
+
+---
 
 ## Overview
-The Local Home Cooking Platform is designed to connect home cooks with local customers seeking authentic meals. The system architecture facilitates profile management, menu setup, secure transactions, and a rating system. The backend uses Node.js and Express.js, interfacing with a MongoDB database to manage user and transaction data, while the frontend employs React for a responsive user interface.
+The Simple Pizza Place Website is designed to provide a lightweight web presence with a static frontend and a simple backend. The system dynamically serves a homepage and a contact page, allowing customers to submit contact inquiries via a form. Data from these submissions is validated and temporarily stored in an in-memory SQLite database.
 
 ## Data Sources
-- **External APIs**: OAuth2 provider for authentication
-- **Databases**: MongoDB for storing user profiles, menu items, orders, and reviews
-- **User Inputs**: Form submissions for profile management, menu creation, and customer feedback
+- **User Input**: Contact form with fields for subject, phone number, and message.
+- **Owner Input**: Static content creation for the homepage.
 
 ## Data Processing
-- **User Authentication**: Customer and cook login requests are validated against OAuth2.
-- **Profile Management**: Profile data is collected or updated through user inputs and stored in the database.
-- **Menu Management**: Query and update operations on menu items via structured JSON payloads.
-- **Order System**: Transaction processing involving order creation, payment validation, and confirmation.
-- **Rating System**: Post-transaction feedback is captured and analyzed for service improvements.
+1. **Frontend Render**: HTML and CSS are served by Express.js to display static pages.
+2. **Form Submission**: User inputs are validated for basic formatting and security.
+3. **Data Handling**: Valid submissions are processed and stored in SQLite.
 
 ## Data Storage
-- **User Profiles**: Stored as collections in MongoDB, preserving details like username, preferences, and cooking specialties.
-- **Menu Items**: Menu data including names, descriptions, images, and pricing stored as JSON documents.
-- **Orders and Transactions**: Order details and payment statuses are persistently maintained within database collections.
-- **Reviews and Ratings**: Feedback and ratings managed as part of the user interaction data.
+- **In-Memory Database**: SQLite stores contact form submissions for the duration of the server session.
 
 ## Data Outputs
-- **APIs**: Backend REST API endpoints facilitate operations like user authentication, profile management, and order processing.
-- **UI Displays**: Frontend showcases profiles, menus, order histories, and rating data in a user-friendly design.
-- **Reports**: Transaction summaries and user activity logs are generated for performance metrics analysis.
+- **Static Web Pages**: Information displayed on the homepage.
+- **Form Acknowledgments**: Confirmation messages for successful submissions.
 
 ## Mermaid Diagram
 
 ```mermaid
 flowchart TD
-    A[User Input] --> B{Validate Input}
-    B --> |Valid| C[(MongoDB)]
-    B --> |Invalid| D[Error Response]
-    C --> E[REST API]
-
-    subgraph User Authentication
-        F[OAuth2 Request] --> G{OAuth2 Validation}
-        G -->|Success| H[Authentication Token]
-        G -->|Failure| I[Login Error]
-    end
-
-    subgraph Profile Management
-        J[Cook/User Profile Input] --> K{Profile Validation}
-        K --> |Valid| L[(User Profiles)]
-        K --> |Invalid| M[Profile Error]
-    end
-
-    subgraph Menu Management
-        N[Menu Data Input] --> O{Validate Menu Data}
-        O --> |Valid| P[(Menu Items)]
-        O --> |Invalid| Q[Menu Error]
-    end
-
-    subgraph Order System
-        R[Order Request] --> S{Validate Order}
-        S --> |Valid| T[(Orders)]
-        S --> |Invalid| U[Order Error]
-        T --> V[Payment Processing]
-        V --> W{Payment Verification}
-        W -->|Success| X[Order Confirmation]
-        W -->|Failure| Y[Payment Error]
-    end
-
-    subgraph Review System
-        Z[Review Submission] --> AA{Validate Review}
-        AA --> |Valid| BB[(Reviews & Ratings)]
-        AA --> |Invalid| CC[Review Error]
-    end
-
-    L --> E
-    P --> E
-    T --> E
-    BB --> E
-
-    H --> E
+    A[User Input] --> B{Form Validation}
+    B -->|Valid| C[(SQLite In-Memory Database)]
+    B -->|Invalid| D[Error Message]
+    C --> E[Data Retrieval for Owner]
+    F[Owner Input] --> G(Homepage Content)
+    G --> H[HTML/CSS Render]
+    A -->|Submit| I[(Contact Page Submission)]
+    I --> B
+    G --> H
+    E --> OwnerDisplay[Owner Session View]
+    OwnerDisplay --> OwnerDecide{View Submissions?}
+    OwnerDecide -->|Yes| E
+    OwnerDecide -->|No| End
 ```
 
-This representation captures the flow of data from user input through processing, storage, and ultimately resulting in system outputs. The validation and decision points ensure robustness in handling user and transaction data, while maintaining a seamless user experience.
+---
+
+This diagram provides a structured view of the system's data architecture, highlighting the interactiveness between user inputs, processing steps, storage, and outputs indicative of server-side handling. Make sure to align this implementation with future enhancements for scaling as outlined in the PRD.

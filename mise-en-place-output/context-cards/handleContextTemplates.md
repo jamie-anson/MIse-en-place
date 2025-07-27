@@ -6,9 +6,9 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleGenerateContextTemplates`
 
-**Summary:** The `handleGenerateContextTemplates` function asynchronously generates context templates for Visual Studio Code extensions based on the provided context and optionally updates paths for previously generated markdown files.
+**Summary:** The `handleGenerateContextTemplates` function asynchronously generates and populates context templates for a VSCode extension, potentially integrating a webview interface for enhanced user interaction.
 
-**Signature:** `async function handleGenerateContextTemplates(context: vscode.ExtensionContext, lastGeneratedPaths: { md?: vscode.Uri } | undefined)`
+**Signature:** `async function handleGenerateContextTemplates(context: vscode.ExtensionContext, webview?: vscode.Webview)`
 
 **Dependencies:**
 
@@ -19,7 +19,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `extractFeaturesFromPrd`
 
-**Summary:** The `extractFeaturesFromPrd` function takes detailed PRD (Product Requirements Document) content and utilizes an OpenAI service to identify and return a list of key features highlighted within the document.
+**Summary:** The function `extractFeaturesFromPrd` asynchronously extracts and returns a list of feature descriptions from the provided Product Requirements Document content using the OpenAI service.
 
 **Signature:** `async function extractFeaturesFromPrd(prdContent: string, openAiService: OpenAiService): Promise<string[]>`
 
@@ -27,7 +27,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `generateTemplateForFeature`
 
-**Summary:** The `generateTemplateForFeature` function asynchronously generates a structured documentation template for a specified feature using the provided content and an AI service.
+**Summary:** The function `generateTemplateForFeature` asynchronously generates a template for a specified feature by utilizing the OpenAI service to process and enrich the provided product requirements document content.
 
 **Signature:** `async function generateTemplateForFeature(feature: string, prdContent: string, openAiService: OpenAiService): Promise<string>`
 

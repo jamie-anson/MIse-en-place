@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `getGraphViewerWebviewContent`
 
-**Summary:** The `getGraphViewerWebviewContent` function generates an HTML string for a webview that visualizes graph data using the Cytoscape.js library, by embedding necessary scripts and stylesheets from specified URIs.
+**Summary:** The `getGraphViewerWebviewContent` function generates and returns the HTML content for a webview that visualizes graph data using specified libraries (`cytoscape.js`, `dagre`), formatted with URIs provided.
 
 **Signature:** `function getGraphViewerWebviewContent(graphData: any, cytoscapeUri: vscode.Uri, dagreUri: vscode.Uri, cyDagreUri: vscode.Uri): string`
 

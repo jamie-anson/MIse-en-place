@@ -1,76 +1,72 @@
-```markdown
-# Local Home Cooking Platform Component Hierarchy Diagram
+# Component Hierarchy for Simple Pizza Place Website
 
 ## System Overview
-The Local Home Cooking Platform is a web application designed to connect local home cooks with nearby customers seeking authentic home-cooked meals. It provides functionalities for profile management, menu creation, ordering, payment processing, and mutual feedback through reviews. The architecture consists of a responsive frontend built with React, a scalable backend utilizing Node.js with Express.js, and a MongoDB database for dynamic data management.
+The Simple Pizza Place Website is designed as a lightweight web application focusing on providing essential information and a means of contact for customers. The system intends to utilize a straightforward architecture with an HTML/CSS frontend served by an Express.js backend, using in-memory SQLite for data handling.
 
 ## Component Layers
 
 1. **UI Layer**
-   - **Frontend Application**
-     - Cook Profile Management
-     - Menu Creation and Management
-     - Order Placement and Payment
-     - Review and Rating
-     - Customer Profile Management
-
-2. **Business Logic Layer**
-   - **Backend API**
-     - Authentication and Authorization
-     - Payment Processing
-     - Order Management
-     - Profile and Menu Logic
+   - Responsible for rendering HTML/CSS pages for the homepage and contact page.
+   - Includes static assets.
+  
+2. **Backend Layer**
+   - Express.js Server handles HTTP requests and serves static files.
+   - Responsible for routing and handling form submissions.
 
 3. **Data Layer**
-   - **Database Access**
-     - MongoDB Database
+   - In-memory SQLite for storing and retrieving contact form submissions.
+   - Temporary data storage that resets on server restart.
 
 ## Component Dependencies
-- The **Frontend Application** relies on the **Backend API** for data retrieval and to perform business operations like authentication, order processing, etc.
-- The **Backend API** interacts with the **Database** to store and retrieve user profiles, menu items, orders, reviews, and ratings.
-- The **Payment Processing** component within the Business Logic Layer interfaces with third-party payment gateways for secure transactions.
-  
+
+- **UI Layer**:
+  - Depends on the Backend Layer for serving HTML pages.
+  - Interacts with Backend for form submission.
+
+- **Backend Layer**:
+  - Serves content to the UI Layer.
+  - Manages data interactions with the Data Layer using SQLite.
+
 ## Component Responsibilities
 
-- **Frontend Application**
-  - Manages the user interface and experience.
-  - Handles client-side operations for profile and order management.
-  - Communicates with the Backend API via REST requests.
+- **HomePage Component**:
+  - Renders static HTML to display general information about the pizza place.
 
-- **Backend API**
-  - Processes business logic and manages core aspects of the platform.
-  - Handles user authentication and payment verification.
-  - Provides endpoints for frontend interaction and maintains data integrity.
+- **ContactPage Component**:
+  - Provides a form with fields for subject, phone number, and message.
+  - Handles user inputs and validates data before submission.
 
-- **Database Access**
-  - Stores and manages data related to users, menu items, orders, and reviews.
-  - Ensures efficient data retrieval and storage via a NoSQL structure.
+- **ExpressServer Component**:
+  - Serves static resources.
+  - Manages routing between the homepage and contact page.
+  - Processes and validates form submissions, then saves data to the Data Layer.
+
+- **DataStore Component**:
+  - Uses SQLite to temporarily store form submissions for the session duration.
+  - Ensures data can be retrieved during server runtime.
 
 ## Mermaid Diagram
 
 ```mermaid
 graph TD
-    UI[Frontend Application] -->|REST API| BL[Backend API]
-    BL --> DB[Database Access]
+    subgraph UI Layer
+        A[Homepage Component]
+        B[ContactPage Component]
+    end
     
-    UI --> CP[Cook Profile Management]
-    UI --> ME[Menu Creation and Management]
-    UI --> OP[Order Placement and Payment]
-    UI --> RR[Review and Rating]
-    UI --> CU[Customer Profile Management]
+    subgraph Backend Layer
+        C[ExpressServer Component]
+    end
     
-    BL --> AU[Authentication and Authorization]
-    BL --> PA[Payment Processing]
-    BL --> OM[Order Management]
-    BL --> PL[Profile and Menu Logic]
-    
-    DB -->|Data Storage| M[(MongoDB Database)]
+    subgraph Data Layer
+        D[(DataStore Component)]
+    end
 
-    CP -->|Displays| UI
-    ME -->|Manages| UI
-    OP -->|Processes| BL
-    RR -->|Records| DB
-    CU -->|Updates| DB
+    A -->|served by| C
+    B -->|served by| C
+    B -->|submits form to| C
+    C -->|stores data in| D
+    C -->|retrieves data from| D
 ```
 
-This diagram and breakdown provide a clear hierarchy of components, their interactions, and responsibilities in the Local Home Cooking Platform, ensuring a modular and maintainable architecture with clear separation of concerns and reusable components.
+This component hierarchy outlines the clear separation of concerns and component interactions within the Simple Pizza Place Website. The architecture emphasizes scalability and maintainability, ensuring easy future enhancements and support for minimal traffic requirements.

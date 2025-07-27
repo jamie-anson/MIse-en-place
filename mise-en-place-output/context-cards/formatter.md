@@ -6,26 +6,26 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `class MarkdownFormatter`
 
-**Summary:** The `MarkdownFormatter` class is likely a utility designed to format and structure text within the "Review and Rating System" by converting it into clean, readable Markdown, which helps ensure consistency and clarity in documentation or user reviews.
+**Summary:** The `MarkdownFormatter` class is likely responsible for converting or structuring content related to the pizza place's website features into markdown format, facilitating consistent documentation and communication between developers and stakeholders.
 
 **Signature:** `class MarkdownFormatter { ... }`
 
 **Methods:**
 
 - **`format`**
-  - **Summary:** The `format` method converts an `AnalysisResult` object into a string representation, incorporating the `sourceFilePath`, to generate a standard output format used within the "Review and Rating System" for displaying analyzed review data.
+  - **Summary:** The `format` method converts the analysis results of a contact form submission into a user-readable string, referencing the specific source file where the form data originated.
   - **Signature:** `public format(result: AnalysisResult, sourceFilePath: string): string`
 
 - **`formatClass`**
-  - **Summary:** The `formatClass` method processes and formats class information into an array of strings, likely to enhance presentation or facilitate further operations within the broader "Review and Rating System" module, contributing to the organized display or storage of class-related data.
+  - **Summary:** The `formatClass` method processes a `ClassInfo` object to generate and return a formatted string array, likely used for standardizing and organizing class information for display or storage within the contact or submission-related features of the "Contact Page" module.
   - **Signature:** `private formatClass(classInfo: ClassInfo): string[] { ... }`
 
 - **`formatFunction`**
-  - **Summary:** The `formatFunction` method is designed to convert the details of a function, encapsulated in a `FunctionInfo` object, into a formatted string array, playing a key role in presenting structured information within the review and rating system documentation.
+  - **Summary:** The `formatFunction` method processes information encapsulated in a `FunctionInfo` object and returns a formatted string array suitable for integrating function details into the "Contact Page" feature's communication or storage components.
   - **Signature:** `private formatFunction(funcInfo: FunctionInfo): string[]`
 
 - **`formatMethod`**
-  - **Summary:** The `formatMethod` function in the "Review and Rating System" processes method information, likely formatting and preparing the details for display or further processing within the context of submitting and retrieving reviews for users on the platform.
+  - **Summary:** The `formatMethod` method processes a `FunctionInfo` object to produce a formatted string array, which aids in managing and displaying contact form submission logic within the "Contact Page" module.
   - **Signature:** `private formatMethod(methodInfo: FunctionInfo): string[]`
 
 ---

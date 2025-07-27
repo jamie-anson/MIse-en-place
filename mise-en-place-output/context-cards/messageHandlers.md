@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `createPrdMessageHandler`
 
-**Summary:** The `createPrdMessageHandler` function initializes and returns a `MessageRouter`, facilitating the handling and routing of messages related to reviews and ratings within the Local Home Cooking platform's module.
+**Summary:** The `createPrdMessageHandler` function initializes and returns a `MessageRouter` instance configured to manage routing for processing contact form submissions within the "Contact Page" feature.
 
 **Signature:** `function createPrdMessageHandler(): MessageRouter`
 

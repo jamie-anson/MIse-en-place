@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `updateAiManifest`
 
-**Summary:** The `updateAiManifest` function asynchronously updates the AI manifest file within the VS Code extension context with new artifact data, ensuring that the AI-related features of the Local Home Cooking platform remain current and effective.
+**Summary:** The `updateAiManifest` function asynchronously updates the AI manifest file within the Visual Studio Code extension context with new artifact information.
 
 **Signature:** `async function updateAiManifest(context: vscode.ExtensionContext, newArtifact: any)`
 

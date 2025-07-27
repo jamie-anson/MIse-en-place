@@ -6,7 +6,7 @@ This document provides a high-level overview of the code structure, including ke
 
 ### `handleContextCards`
 
-**Summary:** The function `handleContextCards` asynchronously processes incoming messages, utilizing the VSCode extension context and webview to dynamically manage and display the relevant cards or information within the extension's user interface.
+**Summary:** The function `handleContextCards` manages the display and dynamic update of context-related information cards within a VS Code extension webview, utilizing data from the user message and the extension's persistent context.
 
 **Signature:** `async function handleContextCards(message: any, context: vscode.ExtensionContext, webview: vscode.Webview)`
 
