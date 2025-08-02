@@ -11,7 +11,7 @@
  */
 
 import * as vscode from 'vscode';
-import { getPrdOutputPath, getContextCardOutputPath, getContextTemplateOutputPath, getDiagramOutputPath, getCcsOutputPath } from './configManager';
+import { getPrdOutputPath, getContextCardOutputPath, getContextTemplateOutputPath, getDiagramOutputPath, getCcsOutputPath, getHandoverOutputPath } from './configManager';
 
 /**
  * Interface representing the current state of generated artifacts in the project.
@@ -50,6 +50,12 @@ export interface ProjectState {
     componentHierarchyFiles: Array<{ fsPath: string }>;
     /** Number of CCS analysis files found */
     ccsCount: number;
+    /** Whether a handover document exists */
+    hasHandover: boolean;
+    /** Array of URIs pointing to detected handover documents */
+    handoverFiles: vscode.Uri[];
+    /** Number of handover documents found */
+    handoverCount: number;
 }
 
 /**
@@ -66,83 +72,70 @@ export class ProjectStateDetector {
     public static async detectProjectState(): Promise<ProjectState> {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders || workspaceFolders.length === 0) {
+            // Return a default empty state if no workspace is open
             return {
-                hasPRD: false,
-                hasContextCards: false,
-                hasContextTemplates: false,
-                hasDataFlowDiagram: false,
-                hasComponentHierarchy: false,
-                hasCCS: false,
-                prdFiles: [],
-                contextCardFiles: [],
-                contextTemplateFiles: [],
-                ccsFiles: [],
-                prdCount: 0,
-                contextCardCount: 0,
-                contextTemplateCount: 0,
-                dataFlowDiagramFiles: [],
-                componentHierarchyFiles: [],
-                ccsCount: 0
+                hasPRD: false, hasContextCards: false, hasContextTemplates: false,
+                hasDataFlowDiagram: false, hasComponentHierarchy: false, hasCCS: false, hasHandover: false,
+                prdFiles: [], contextCardFiles: [], contextTemplateFiles: [], ccsFiles: [], handoverFiles: [],
+                prdCount: 0, contextCardCount: 0, contextTemplateCount: 0, ccsCount: 0, handoverCount: 0,
+                dataFlowDiagramFiles: [], componentHierarchyFiles: []
             };
         }
 
         const workspaceUri = workspaceFolders[0].uri;
-        
-        // Detect PRD files
-        const prdFiles = await this.findPRDFiles(workspaceUri);
-        console.log('[ProjectStateDetector] PRD files found:', prdFiles.map(f => f.fsPath));
-        
-        // Detect Context Cards
-        const contextCardFiles = await this.findContextCardFiles(workspaceUri);
-        console.log('[ProjectStateDetector] Context Card files found:', contextCardFiles.map(f => f.fsPath));
-        
-        // Detect Context Templates
-        const contextTemplateFiles = await this.findContextTemplateFiles(workspaceUri);
-        console.log('[ProjectStateDetector] Context Template files found:', contextTemplateFiles.map(f => f.fsPath));
-        
-        // Detect CCS files
-        const ccsFiles = await this.findCCSFiles(workspaceUri);
-        console.log('[ProjectStateDetector] CCS files found:', ccsFiles.map(f => f.fsPath));
+        console.log(`[ProjectStateDetector] Workspace URI: ${workspaceUri.fsPath}`);
 
-        // Detect diagram files with error handling
-        let hasDataFlowDiagram = false;
-        let hasComponentHierarchy = false;
-        
         try {
-            // Logic Step: Detect diagram files in the context templates directory
-            hasDataFlowDiagram = await this.checkDiagramExists(workspaceUri, 'data_flow_diagram.md');
-            hasComponentHierarchy = await this.checkDiagramExists(workspaceUri, 'component_hierarchy.md');
-            
-            // Log diagram detection results for debugging
-            console.log(`[ProjectStateDetector] Detection results:`);
-            console.log(`[ProjectStateDetector] - hasDataFlowDiagram: ${hasDataFlowDiagram}`);
-            console.log(`[ProjectStateDetector] - hasComponentHierarchy: ${hasComponentHierarchy}`);
-        } catch (error) {
-            // If there's an error detecting diagrams, log it but don't fail the entire operation
-            console.error('[ProjectStateDetector] Error detecting diagram files:', error);
-            console.log('[ProjectStateDetector] Continuing with diagram detection disabled');
-            hasDataFlowDiagram = false;
-            hasComponentHierarchy = false;
-        }
+            const [
+                prdFiles,
+                contextCardFiles,
+                contextTemplateFiles,
+                ccsFiles,
+                handoverFiles,
+                hasDataFlowDiagram,
+                hasComponentHierarchy
+            ] = await Promise.all([
+                this.findPRDFiles(workspaceUri),
+                this.findContextCardFiles(workspaceUri),
+                this.findContextTemplateFiles(workspaceUri),
+                this.findCCSFiles(workspaceUri),
+                this.findHandoverFiles(workspaceUri),
+                this.checkDiagramExists(workspaceUri, 'data-flow-diagram.json'),
+                this.checkDiagramExists(workspaceUri, 'component-hierarchy-diagram.json')
+            ]);
 
-        return {
-            hasPRD: prdFiles.length > 0,
-            hasContextCards: contextCardFiles.length > 0,
-            hasContextTemplates: contextTemplateFiles.length > 0,
-            hasDataFlowDiagram,
-            hasComponentHierarchy,
-            hasCCS: ccsFiles.length > 0,
-            prdFiles,
-            contextCardFiles,
-            contextTemplateFiles,
-            ccsFiles,
-            prdCount: prdFiles.length,
-            contextCardCount: contextCardFiles.length,
-            contextTemplateCount: contextTemplateFiles.length,
-            dataFlowDiagramFiles: hasDataFlowDiagram ? [{ fsPath: vscode.Uri.joinPath(getDiagramOutputPath(workspaceUri), 'data_flow_diagram.md').fsPath }] : [],
-            componentHierarchyFiles: hasComponentHierarchy ? [{ fsPath: vscode.Uri.joinPath(getDiagramOutputPath(workspaceUri), 'component_hierarchy.md').fsPath }] : [],
-            ccsCount: ccsFiles.length
-        };
+            return {
+                hasPRD: prdFiles.length > 0,
+                prdFiles,
+                prdCount: prdFiles.length,
+                hasContextCards: contextCardFiles.length > 0,
+                contextCardFiles,
+                contextCardCount: contextCardFiles.length,
+                hasContextTemplates: contextTemplateFiles.length > 0,
+                contextTemplateFiles,
+                contextTemplateCount: contextTemplateFiles.length,
+                hasDataFlowDiagram,
+                hasComponentHierarchy,
+                hasCCS: ccsFiles.length > 0,
+                ccsFiles,
+                ccsCount: ccsFiles.length,
+                hasHandover: handoverFiles.length > 0,
+                handoverFiles,
+                handoverCount: handoverFiles.length,
+                dataFlowDiagramFiles: hasDataFlowDiagram ? [{ fsPath: vscode.Uri.joinPath(getDiagramOutputPath(workspaceUri), 'data-flow-diagram.json').fsPath }] : [],
+                componentHierarchyFiles: hasComponentHierarchy ? [{ fsPath: vscode.Uri.joinPath(getDiagramOutputPath(workspaceUri), 'component-hierarchy-diagram.json').fsPath }] : [],
+            };
+        } catch (error) {
+            console.error('Error detecting project state:', error);
+            // Return a default empty state in case of unexpected errors
+            return {
+                hasPRD: false, hasContextCards: false, hasContextTemplates: false,
+                hasDataFlowDiagram: false, hasComponentHierarchy: false, hasCCS: false, hasHandover: false,
+                prdFiles: [], contextCardFiles: [], contextTemplateFiles: [], ccsFiles: [], handoverFiles: [],
+                prdCount: 0, contextCardCount: 0, contextTemplateCount: 0, ccsCount: 0, handoverCount: 0,
+                dataFlowDiagramFiles: [], componentHierarchyFiles: []
+            };
+        }
     }
 
     /**
@@ -152,9 +145,9 @@ export class ProjectStateDetector {
      * @returns Array of URIs pointing to detected PRD files
      */
     private static async findPRDFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
-        const prdFiles: vscode.Uri[] = [];
-
         try {
+            const prdFiles: vscode.Uri[] = [];
+
             // Check configured PRD output directory and its subdirectories
             const outputDir = getPrdOutputPath(workspaceUri);
             const outputFiles = await vscode.workspace.findFiles(
@@ -298,6 +291,27 @@ export class ProjectStateDetector {
         } catch (error) {
             console.error(`[ProjectStateDetector] ❌ Unexpected error in checkDiagramExists for ${fileName}:`, error);
             return false;
+        }
+    }
+
+    /**
+     * Logic Step: Find Handover files in the user-configured or default directory.
+     * Uses the VS Code configuration to determine the correct path for handover documents.
+     * @param workspaceUri The root URI of the current workspace
+     * @returns Array of URIs pointing to detected Handover files
+     */
+    private static async findHandoverFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
+        try {
+            const handoverDir = getHandoverOutputPath(workspaceUri);
+            const handoverFiles = await vscode.workspace.findFiles(
+                new vscode.RelativePattern(handoverDir, 'HANDOVER.md'),
+                null,
+                10
+            );
+            return handoverFiles;
+        } catch (error) {
+            console.log('Error finding handover files:', error);
+            return [];
         }
     }
 }

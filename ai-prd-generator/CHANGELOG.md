@@ -1,5 +1,18 @@
 # Change Log
 
+## [0.1.12] - 2025-07-30
+
+### Fixed
+- Resolved an issue with the "Generate Handover Document" command by ensuring it uses the shared `PanelManager` instance correctly, preventing UI conflicts.
+- Added the missing command registration for handover document generation in the message handler.
+
+### Changed
+- Refactored the test runner to execute the entire test suite, not just a single file, by creating a centralized test suite entry point.
+- Improved and standardized documentation for `codebaseAnalysisService.ts` and `fileSystemUtils.ts` for better clarity and maintainability.
+
+### Added
+- Created a new test suite entry point (`src/test/suite/index.ts`) to discover and run all tests dynamically.
+
 All notable changes to the "ai-prd-generator" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.

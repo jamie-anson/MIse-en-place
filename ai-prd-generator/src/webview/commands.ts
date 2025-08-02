@@ -50,4 +50,7 @@ export const COMMANDS = {
     GENERATE_TESTING_FRAMEWORK: 'generate-testing-framework',
     GENERATE_AI_PROMPTING_GUIDE: 'generate-ai-prompting-guide',
     GENERATE_ALL_CCS_DOCS: 'generate-all-ccs-docs',
+
+    // Handover document generation
+    GENERATE_HANDOVER_FILE: 'generate-handover-file',
 };

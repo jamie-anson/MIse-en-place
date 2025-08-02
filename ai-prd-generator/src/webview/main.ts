@@ -46,6 +46,7 @@ const vscode = (window as any).acquireVsCodeApi();
     // Logic Step: Listen for messages from the extension with type safety
     window.addEventListener('message', (event: MessageEvent<ExtensionToWebviewMessage>) => {
         const message = event.data;
+        console.log('Received message from extension:', message);
         
         try {
             switch (message.command) {

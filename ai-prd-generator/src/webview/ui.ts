@@ -157,6 +157,7 @@ export function updateUIBasedOnProjectState(projectState: ProjectState): void {
     updateContextCardsSection(projectState);
     updateDiagramSection(projectState);
     updateCCSSection(projectState);
+    updateHandoverSection(projectState);
 }
 
 /**
@@ -298,6 +299,24 @@ function updateDiagramSection(projectState: ProjectState): void {
  * Updates button text to indicate regeneration if CCS analysis already exists.
  * @param projectState Typed object containing project artifact detection results
  */
+function updateHandoverSection(projectState: ProjectState): void {
+    const isEnabled = projectState.hasCCS;
+    updateSection('handover-document-section', {
+        sectionId: 'handover-document-section',
+        visible: isEnabled
+    });
+
+    const buttonConfig: ButtonConfig = {
+        text: projectState.hasHandover ? 'Regenerate Handover Document' : 'Generate Handover Document',
+        title: isEnabled 
+            ? (projectState.hasHandover ? 'Regenerate the handover document from the latest CCS analysis' : 'Generate a handover document from the CCS analysis')
+            : 'Generate a CCS score first to enable handover document generation',
+        enabled: isEnabled,
+        visible: true
+    };
+    updateButton(elements.generateHandoverFileButton, buttonConfig);
+}
+
 function updateCCSSection(projectState: ProjectState): void {
     const buttonConfig: ButtonConfig = {
         text: projectState.hasCCS ? 'Regenerate CCS Score' : 'Generate CCS Score',

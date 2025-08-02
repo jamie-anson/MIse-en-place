@@ -189,6 +189,9 @@ export function getWebviewContent(scriptUri: vscode.Uri, webview: vscode.Webview
                 <div class="button-group" style="margin-top: 10px;">
                     <button id="generate-all-ccs-docs">Generate All CCS Documentation</button>
                 </div>
+                <div class="button-group" style="margin-top: 10px;">
+                    <button id="generate-handover-file">Generate Handover Document</button>
+                </div>
             </div>
         </div>
 
