@@ -122,6 +122,9 @@ export async function handleGenerateHandover(message: any, context: vscode.Exten
       const cleanedContent = startIndex !== -1 ? handoverContent.substring(startIndex) : handoverContent;
 
       const handoverDirUri = getHandoverOutputPath(workspaceRoot);
+      if (!handoverDirUri) {
+        throw new Error('Could not determine handover output path. Is a workspace open?');
+      }
       const handoverFileUri = vscode.Uri.joinPath(handoverDirUri, HANDOVER_FILENAME);
 
       try {

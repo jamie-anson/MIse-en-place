@@ -43,6 +43,7 @@ export const COMMANDS = {
 
     // Code Comprehension Score
     GENERATE_CCS: 'generate-ccs',
+    GENERATE_ENHANCED_CCS: 'generate-enhanced-ccs',
 
     // CCS Documentation & Testing
     GENERATE_COMPREHENSIVE_README: 'generate-comprehensive-readme',

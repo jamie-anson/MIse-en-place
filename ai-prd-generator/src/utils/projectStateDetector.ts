@@ -11,7 +11,12 @@
  */
 
 import * as vscode from 'vscode';
-import { getPrdOutputPath, getContextCardOutputPath, getContextTemplateOutputPath, getDiagramOutputPath, getCcsOutputPath, getHandoverOutputPath } from './configManager';
+import * as configManager from './configManager';
+
+// Dependencies, with defaults that can be overridden for testing
+let deps = {
+    getWorkspaceUri: configManager.getWorkspaceUri,
+};
 
 /**
  * Interface representing the current state of generated artifacts in the project.
@@ -65,25 +70,30 @@ export interface ProjectState {
  */
 export class ProjectStateDetector {
     /**
+     * Overrides the default dependencies with mock versions for testing.
+     * @param newDependencies The mock dependencies to use.
+     */
+    public static setDependencies(newDependencies: Partial<typeof deps>) {
+        deps = { ...deps, ...newDependencies };
+    }
+
+    /**
      * Logic Step: Detect the current state of generated artifacts in the workspace.
      * This is the main entry point that orchestrates the detection of all artifact types.
      * @returns ProjectState object containing detection results and file counts
      */
     public static async detectProjectState(): Promise<ProjectState> {
-        const workspaceFolders = vscode.workspace.workspaceFolders;
-        if (!workspaceFolders || workspaceFolders.length === 0) {
-            // Return a default empty state if no workspace is open
-            return {
-                hasPRD: false, hasContextCards: false, hasContextTemplates: false,
-                hasDataFlowDiagram: false, hasComponentHierarchy: false, hasCCS: false, hasHandover: false,
-                prdFiles: [], contextCardFiles: [], contextTemplateFiles: [], ccsFiles: [], handoverFiles: [],
-                prdCount: 0, contextCardCount: 0, contextTemplateCount: 0, ccsCount: 0, handoverCount: 0,
-                dataFlowDiagramFiles: [], componentHierarchyFiles: []
-            };
+        // Logic Step: Get workspace URI with multiple fallback strategies for different VS Code variants
+        const workspaceUri = await deps.getWorkspaceUri();
+        if (!workspaceUri) {
+            console.log('[ProjectStateDetector] No workspace detected, returning empty state');
+            return this.getEmptyProjectState();
         }
 
-        const workspaceUri = workspaceFolders[0].uri;
         console.log(`[ProjectStateDetector] Workspace URI: ${workspaceUri.fsPath}`);
+        console.log(`[ProjectStateDetector] Workspace scheme: ${workspaceUri.scheme}`);
+        console.log(`[ProjectStateDetector] VS Code variant: ${vscode.env.appName}`);
+        console.log(`[ProjectStateDetector] VS Code version: ${vscode.version}`);
 
         try {
             const [
@@ -128,14 +138,76 @@ export class ProjectStateDetector {
         } catch (error) {
             console.error('Error detecting project state:', error);
             // Return a default empty state in case of unexpected errors
-            return {
-                hasPRD: false, hasContextCards: false, hasContextTemplates: false,
-                hasDataFlowDiagram: false, hasComponentHierarchy: false, hasCCS: false, hasHandover: false,
-                prdFiles: [], contextCardFiles: [], contextTemplateFiles: [], ccsFiles: [], handoverFiles: [],
-                prdCount: 0, contextCardCount: 0, contextTemplateCount: 0, ccsCount: 0, handoverCount: 0,
-                dataFlowDiagramFiles: [], componentHierarchyFiles: []
-            };
+            return this.getEmptyProjectState();
         }
+    }
+
+    /**
+     * Logic Step: Get workspace URI with multiple fallback strategies for VS Code variants.
+     * Handles different workspace configurations and VS Code variants (VS Code, Cursor, Windsurf, etc.)
+     * @returns Workspace URI or null if no workspace is available
+     */
+    private static async getWorkspaceUri(): Promise<vscode.Uri | null> {
+        try {
+            // Strategy 1: Standard workspace folders (works in most VS Code variants)
+            const workspaceFolders = vscode.workspace.workspaceFolders;
+            if (workspaceFolders && workspaceFolders.length > 0) {
+                return workspaceFolders[0].uri;
+            }
+
+            // Strategy 2: Check if there's an active text editor with a file
+            const activeEditor = vscode.window.activeTextEditor;
+            if (activeEditor && activeEditor.document.uri.scheme === 'file') {
+                // Get the directory containing the active file (cross-platform)
+                const activeFileUri = activeEditor.document.uri;
+                const workspaceUri = vscode.Uri.joinPath(activeFileUri, '..');
+                console.log('[ProjectStateDetector] Using active editor workspace fallback');
+                return workspaceUri;
+            }
+
+            // Strategy 3: Try to get workspace from configuration
+            const workspaceFile = vscode.workspace.workspaceFile;
+            if (workspaceFile) {
+                const workspaceDir = vscode.Uri.joinPath(workspaceFile, '..');
+                console.log('[ProjectStateDetector] Using workspace file fallback');
+                return workspaceDir;
+            }
+
+            console.log('[ProjectStateDetector] No workspace detection strategy succeeded');
+            return null;
+        } catch (error) {
+            console.error('[ProjectStateDetector] Error in workspace detection:', error);
+            return null;
+        }
+    }
+
+    /**
+     * Logic Step: Create a standardized empty project state.
+     * Provides consistent empty state structure across all detection scenarios.
+     * @returns Empty ProjectState object with all flags set to false
+     */
+    public static getEmptyProjectState(): ProjectState {
+        return {
+            hasPRD: false,
+            hasContextCards: false,
+            hasContextTemplates: false,
+            hasDataFlowDiagram: false,
+            hasComponentHierarchy: false,
+            hasCCS: false,
+            hasHandover: false,
+            prdFiles: [],
+            contextCardFiles: [],
+            contextTemplateFiles: [],
+            ccsFiles: [],
+            handoverFiles: [],
+            prdCount: 0,
+            contextCardCount: 0,
+            contextTemplateCount: 0,
+            ccsCount: 0,
+            handoverCount: 0,
+            dataFlowDiagramFiles: [],
+            componentHierarchyFiles: []
+        };
     }
 
     /**
@@ -145,173 +217,118 @@ export class ProjectStateDetector {
      * @returns Array of URIs pointing to detected PRD files
      */
     private static async findPRDFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
-        try {
-            const prdFiles: vscode.Uri[] = [];
+        const searchPromises: Promise<vscode.Uri[]>[] = [];
 
-            // Check configured PRD output directory and its subdirectories
-            const outputDir = getPrdOutputPath(workspaceUri);
-            const outputFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(outputDir, '**/*.md'),  // Search recursively
-                null,
-                100
-            );
-            
-            // Filter for PRD-like files
-            for (const file of outputFiles) {
-                const fileName = file.fsPath.toLowerCase();
-                if (fileName.includes('prd') || fileName.includes('product-requirements')) {
-                    prdFiles.push(file);
-                }
-            }
-
-            // Also check root directory for common PRD file names
-            const rootPrdFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(workspaceUri, '{PRD.md,prd.md,product-requirements.md,ProductRequirements.md}'),
-                '**/node_modules/**',
-                10
-            );
-            prdFiles.push(...rootPrdFiles);
-
-        } catch (error) {
-            console.log('Error finding PRD files:', error);
+        // Logic Step 1: Search in the officially configured PRD output path.
+        const prdOutputPath = configManager.getPrdOutputPath(workspaceUri);
+        if (prdOutputPath) {
+            searchPromises.push(this.findFiles(prdOutputPath, '**/*.md'));
         }
 
-        return prdFiles;
+        // Logic Step 2: For backward compatibility, explicitly check the legacy 'prd' folder at the root.
+        const legacyPrdPath = vscode.Uri.joinPath(workspaceUri, 'prd');
+        searchPromises.push(this.findFiles(legacyPrdPath, '**/*.md'));
+
+        // Logic Step 3: Search in the workspace root for common PRD filenames.
+        searchPromises.push(this.findFiles(workspaceUri, '{PRD.md,prd.md,product-requirements.md,ProductRequirements.md}'));
+
+        // Logic Step 4: Execute all searches and flatten the results.
+        const results = await Promise.all(searchPromises);
+        const allUris = results.flat();
+
+        // Logic Step 5: Filter for unique URIs to avoid duplicates.
+        const uniqueUris = allUris.filter((uri, index, self) => 
+            index === self.findIndex(u => u.fsPath === uri.fsPath)
+        );
+
+        return uniqueUris;
     }
 
     /**
-     * Logic Step: Find Context Card files in the user-configured or default directory.
-     * Uses the VS Code configuration to determine the correct path for context cards.
+     * Logic Step: Find Context Card files in all possible (new and legacy) directories.
+     * Uses the VS Code configuration to determine the correct paths for context cards.
      * @param workspaceUri The root URI of the current workspace
      * @returns Array of URIs pointing to detected Context Card files
      */
     private static async findContextCardFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
-        try {
-            // Get user-configured path using configuration manager
-            
-            const contextCardDir = getContextCardOutputPath(workspaceUri);
-            const contextCardFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(contextCardDir, '*.md'),
-                null,
-                1000
-            );
-
-            return contextCardFiles;
-        } catch (error) {
-            console.log('Error finding context card files:', error);
-            return [];
-        }
+        const possiblePaths = configManager.getAllPossibleOutputPaths(workspaceUri).contextCards;
+        const searchPromises = possiblePaths.map(uri => this.findFiles(uri, '**/*.md'));
+        return (await Promise.all(searchPromises)).flat();
     }
 
     /**
-     * Logic Step: Find Context Template files in the user-configured or default directory.
-     * Uses the VS Code configuration to determine the correct path for context templates.
+     * Logic Step: Find Context Template files in all possible (new and legacy) directories.
+     * Uses the VS Code configuration to determine the correct paths for context templates.
      * @param workspaceUri The root URI of the current workspace
      * @returns Array of URIs pointing to detected Context Template files
      */
     private static async findContextTemplateFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
-        try {
-            // Get user-configured path using configuration manager
-            
-            const contextTemplateDir = getContextTemplateOutputPath(workspaceUri);
-            const contextTemplateFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(contextTemplateDir, '*.md'),
-                null,
-                1000
-            );
-
-            return contextTemplateFiles;
-        } catch (error) {
-            console.log('Error finding context template files:', error);
-            return [];
-        }
+        const possiblePaths = configManager.getAllPossibleOutputPaths(workspaceUri).contextTemplates;
+        const searchPromises = possiblePaths.map(uri => this.findFiles(uri, '**/*.md'));
+        return (await Promise.all(searchPromises)).flat();
     }
 
     /**
-     * Logic Step: Find CCS (Code Comprehension Score) analysis files in the user-configured or default directory.
+     * Logic Step: Find CCS (Code Comprehension Score) analysis files in all possible (new and legacy) directories.
      * Uses the VS Code configuration to determine the correct path for CCS files.
      * @param workspaceUri The root URI of the current workspace
      * @returns Array of URIs pointing to detected CCS analysis files
      */
     private static async findCCSFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
-        try {
-            // Get user-configured path using configuration manager
-            const ccsDir = getCcsOutputPath(workspaceUri);
-            const ccsFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(ccsDir, 'ccs-analysis-*.md'),
-                null,
-                1000
-            );
-
-            return ccsFiles;
-        } catch (error) {
-            console.log('Error finding CCS files:', error);
-            return [];
-        }
+        const possiblePaths = configManager.getAllPossibleOutputPaths(workspaceUri).ccs;
+        const searchPromises = possiblePaths.map(uri => this.findFiles(uri, '**/*.md'));
+        return (await Promise.all(searchPromises)).flat();
     }
 
     /**
-     * Logic Step: Check if a specific diagram file exists in the context templates directory.
-     * @param workspaceUri The root URI of the current workspace
-     * @param fileName The name of the diagram file to check for
-     * @returns Boolean indicating whether the diagram file exists
-     */
-    private static async checkDiagramExists(workspaceUri: vscode.Uri, fileName: string): Promise<boolean> {
-        try {
-            // Get user-configured path using configuration manager
-            const diagramDir = getDiagramOutputPath(workspaceUri);
-            
-            // First, check if the directory exists
-            try {
-                await vscode.workspace.fs.stat(diagramDir);
-            } catch (dirError) {
-                console.log(`[ProjectStateDetector] Diagram directory not found at ${diagramDir.fsPath}`);
-                return false;
-            }
-            
-            const diagramPath = vscode.Uri.joinPath(diagramDir, fileName);
-            
-            // Debug logging for diagram file detection
-            console.log(`[ProjectStateDetector] Checking diagram: ${fileName}`);
-            console.log(`[ProjectStateDetector] Full path: ${diagramPath.fsPath}`);
-            
-            // Check if file exists
-            try {
-                await vscode.workspace.fs.stat(diagramPath);
-                console.log(`[ProjectStateDetector] ✅ Found diagram: ${fileName}`);
-                return true;
-            } catch (fileError) {
-                if (fileError instanceof vscode.FileSystemError) {
-                    console.log(`[ProjectStateDetector] ❌ Diagram file not found: ${fileName}`);
-                } else {
-                    console.error(`[ProjectStateDetector] ❌ Error checking diagram file ${fileName}:`, fileError);
-                }
-                return false;
-            }
-        } catch (error) {
-            console.error(`[ProjectStateDetector] ❌ Unexpected error in checkDiagramExists for ${fileName}:`, error);
-            return false;
-        }
-    }
-
-    /**
-     * Logic Step: Find Handover files in the user-configured or default directory.
-     * Uses the VS Code configuration to determine the correct path for handover documents.
+     * Logic Step: Find Handover files in all possible (new and legacy) directories.
      * @param workspaceUri The root URI of the current workspace
      * @returns Array of URIs pointing to detected Handover files
      */
     private static async findHandoverFiles(workspaceUri: vscode.Uri): Promise<vscode.Uri[]> {
+        const possiblePaths = configManager.getAllPossibleOutputPaths(workspaceUri).handover;
+        const searchPromises = possiblePaths.map(uri => this.findFiles(uri, '**/*.md'));
+        return (await Promise.all(searchPromises)).flat();
+    }
+
+    /**
+     * Logic Step: Find files using a URI and pattern, with error handling.
+     * @param uri The base URI to search within. If null, returns an empty array.
+     * @param pattern The glob pattern to match.
+     * @returns An array of found file URIs.
+     */
+    private static async findFiles(uri: vscode.Uri | null, pattern: string): Promise<vscode.Uri[]> {
+        if (!uri) {
+            return [];
+        }
         try {
-            const handoverDir = getHandoverOutputPath(workspaceUri);
-            const handoverFiles = await vscode.workspace.findFiles(
-                new vscode.RelativePattern(handoverDir, 'HANDOVER.md'),
-                null,
-                10
-            );
-            return handoverFiles;
+            return await vscode.workspace.findFiles(new vscode.RelativePattern(uri, pattern), '**/node_modules/**', 1000);
         } catch (error) {
-            console.log('Error finding handover files:', error);
+            console.error(`[ProjectStateDetector] Error finding files in ${uri.fsPath}:`, error);
             return [];
         }
     }
+
+    /**
+     * Logic Step: Check if a specific diagram file exists.
+     * @param workspaceUri The root URI of the current workspace.
+     * @param fileName The name of the diagram file.
+     * @returns A boolean indicating if the file exists.
+     */
+    private static async checkDiagramExists(workspaceUri: vscode.Uri, fileName: string): Promise<boolean> {
+        const diagramDir = configManager.getDiagramOutputPath(workspaceUri);
+        if (!diagramDir) {
+            return false; // If the base directory path is null, the file can't exist.
+        }
+
+        const diagramPath = vscode.Uri.joinPath(diagramDir, fileName);
+        try {
+            await vscode.workspace.fs.stat(diagramPath);
+            return true;
+        } catch (error) {
+            // File does not exist or other error, return false.
+            return false;
+        }
+    }
 }
+

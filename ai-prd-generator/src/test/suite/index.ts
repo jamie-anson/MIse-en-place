@@ -1,18 +1,7 @@
-/**
- * @file index.ts
- * @description Test suite entry point for the VS Code extension.
- * This script uses Mocha and glob to discover and run all test files in the project.
- */
-
 import * as path from 'path';
 import Mocha from 'mocha';
 import { glob } from 'glob';
 
-/**
- * @function run
- * @description Runs the Mocha test suite.
- * @returns {Promise<void>} A promise that resolves when the tests complete or rejects on failure.
- */
 export function run(): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
