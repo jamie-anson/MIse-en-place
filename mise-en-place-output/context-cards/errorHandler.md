@@ -9,8 +9,8 @@ This document provides a high-level overview of the code structure, including ke
 **Summary:** The `handleError` function manages and displays error information within a specified context, optionally utilizing a Visual Studio Code webview for enhanced error presentation.
 
 **Signature:** `function handleError(
-    error: any, 
-    context: ErrorContext, 
+    error: any,
+    context: ErrorContext,
     webview?: vscode.Webview
 ): void`
 
@@ -26,8 +26,8 @@ This document provides a high-level overview of the code structure, including ke
 **Summary:** The `handleGenerationError` function manages errors that occur during specific operations related to the "Contact Page" feature, optionally relaying error information to a provided VS Code webview for debugging or user notification purposes.
 
 **Signature:** `function handleGenerationError(
-    error: any, 
-    operation: string, 
+    error: any,
+    operation: string,
     webview?: vscode.Webview
 ): void`
 
@@ -42,9 +42,9 @@ This document provides a high-level overview of the code structure, including ke
 **Summary:** The `handleFileError` function manages and reports errors encountered during file operations on the specified file path within the VS Code extension context, optionally communicating the error to a webview if provided.
 
 **Signature:** `function handleFileError(
-    error: any, 
-    operation: string, 
-    filePath: string, 
+    error: any,
+    operation: string,
+    filePath: string,
     webview?: vscode.Webview
 ): void`
 
@@ -59,9 +59,9 @@ This document provides a high-level overview of the code structure, including ke
 **Summary:** The `handleApiError` function manages errors encountered during API calls by logging the error details and optionally displaying an error message within a Visual Studio Code webview, helping maintain smooth operation and user feedback within the contact form submission process.
 
 **Signature:** `function handleApiError(
-    error: any, 
-    service: string, 
-    operation: string, 
+    error: any,
+    service: string,
+    operation: string,
     webview?: vscode.Webview
 ): void`
 

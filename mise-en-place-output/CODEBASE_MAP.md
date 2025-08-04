@@ -63,6 +63,7 @@ graph TB
 ## 📁 Key Directory Structure
 
 ### Core Application (`src/`)
+
 ```
 src/
 ├── components/          # 🧩 Reusable UI Components
@@ -100,6 +101,7 @@ src/
 ```
 
 ### Context Documentation (`mise-en-place-output/`)
+
 ```
 mise-en-place-output/
 ├── context-cards/      # 📋 Component Documentation
@@ -128,6 +130,7 @@ mise-en-place-output/
 ## 🔗 Component Dependencies
 
 ### Frontend Dependencies
+
 ```mermaid
 graph LR
     PAGES[Pages] --> COMPONENTS[Components]
@@ -146,6 +149,7 @@ graph LR
 ```
 
 ### Service Layer Dependencies
+
 ```mermaid
 graph TB
     API_GATEWAY[API Gateway] --> AUTH_MIDDLEWARE[Auth Middleware]
@@ -168,14 +172,16 @@ graph TB
 ## 🚪 Entry Points
 
 ### 1. Application Entry (`src/main.ts`)
+
 - **Purpose**: Application bootstrap and initialization
-- **Key Responsibilities**: 
+- **Key Responsibilities**:
   - Framework setup (React/Vue)
   - Global configuration
   - Error boundary setup
   - Authentication initialization
 
 ### 2. API Entry (`src/api/index.ts`)
+
 - **Purpose**: API server initialization
 - **Key Responsibilities**:
   - Express server setup
@@ -184,6 +190,7 @@ graph TB
   - Database connection
 
 ### 3. Configuration (`src/config/`)
+
 - **Purpose**: Environment and application configuration
 - **Key Files**:
   - `database.ts` - Database connection settings
@@ -193,6 +200,7 @@ graph TB
 ## 🔄 Data Flow Patterns
 
 ### User Authentication Flow
+
 ```
 1. User Login Request → Auth Service
 2. Validate Credentials → Database
@@ -202,6 +210,7 @@ graph TB
 ```
 
 ### Meal Discovery Flow
+
 ```
 1. Search Request → Meal Service
 2. Apply Filters → Query Builder
@@ -211,6 +220,7 @@ graph TB
 ```
 
 ### Order Processing Flow
+
 ```
 1. Order Creation → Order Service
 2. Validate Meal → Meal Service
@@ -222,6 +232,7 @@ graph TB
 ## 🔧 Integration Points
 
 ### External Services
+
 - **Payment Processing**: Stripe/PayPal integration
 - **File Storage**: AWS S3 or local storage
 - **Email Service**: SendGrid or SMTP
@@ -230,6 +241,7 @@ graph TB
 - **Image Processing**: Sharp or ImageMagick
 
 ### Database Schema
+
 - **Users**: Authentication and profile data
 - **Meals**: Meal listings and metadata
 - **Orders**: Order tracking and history
@@ -239,6 +251,7 @@ graph TB
 ## 🎯 Critical Paths for AI Agents
 
 ### High-Priority Components
+
 1. **Authentication System** (`src/services/auth/`)
    - User registration and login
    - JWT token management
@@ -257,6 +270,7 @@ graph TB
 ### Common Development Workflows
 
 #### Adding a New Feature
+
 1. Create types in `src/types/`
 2. Implement service logic in `src/services/`
 3. Create UI components in `src/components/`
@@ -265,6 +279,7 @@ graph TB
 6. Update documentation
 
 #### Debugging Issues
+
 1. Check browser console for frontend errors
 2. Review API logs for backend issues
 3. Verify database queries and connections
@@ -281,21 +296,24 @@ graph TB
 
 ## 🤖 AI Agent Quick Reference
 
-### When Adding New Features:
+### When Adding New Features
+
 1. Check existing patterns in similar components
 2. Follow established naming conventions
 3. Add comprehensive tests
 4. Update relevant documentation
 5. Consider security implications
 
-### When Debugging:
+### When Debugging
+
 1. Start with the entry points
 2. Follow the data flow diagrams
 3. Check integration points for failures
 4. Review error logs systematically
 5. Validate external dependencies
 
-### When Refactoring:
+### When Refactoring
+
 1. Understand component dependencies
 2. Maintain existing interfaces
 3. Update tests accordingly

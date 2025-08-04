@@ -1,6 +1,7 @@
 # Component Hierarchy for Simple Pizza Place Website
 
 ## System Overview
+
 The Simple Pizza Place Website is designed as a lightweight web application focusing on providing essential information and a means of contact for customers. The system intends to utilize a straightforward architecture with an HTML/CSS frontend served by an Express.js backend, using in-memory SQLite for data handling.
 
 ## Component Layers

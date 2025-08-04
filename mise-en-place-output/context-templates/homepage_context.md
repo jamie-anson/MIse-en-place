@@ -1,4 +1,4 @@
-```markdown
+
 # Context: Homepage Feature
 
 ## Purpose
@@ -28,4 +28,4 @@ The Homepage module serves as the landing page for the pizza place website. Its 
 
 ## Owner
 - **Webmaster/Content Manager**: [Owner's Name], responsible for maintaining the homepage content and ensuring up-to-date information is displayed.
-```
+

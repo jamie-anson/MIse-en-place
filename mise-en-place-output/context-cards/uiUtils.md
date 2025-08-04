@@ -9,7 +9,7 @@ This document provides a high-level overview of the code structure, including ke
 **Summary:** The `safeGetElement` function retrieves an element by its ID from the DOM and ensures it matches a specified type using a type guard, returning the element if valid or `null` if not, thus aiding in safe DOM manipulation within the contact page feature.
 
 **Signature:** `function safeGetElement<T extends HTMLElement>(
-    id: string, 
+    id: string,
     typeGuard: ElementTypeGuard<T>
 ): T | null`
 

@@ -34,9 +34,11 @@ tests/
 ## 🎯 Test Categories
 
 ### Unit Tests (tests/unit/)
+
 Tests individual functions and components in isolation.
 
 **Example Structure:**
+
 ```typescript
 // tests/unit/services/mealService.test.ts
 describe('MealService', () => {
@@ -57,9 +59,11 @@ describe('MealService', () => {
 ```
 
 ### Integration Tests (tests/integration/)
+
 Tests component interactions and data flow.
 
 **Example Structure:**
+
 ```typescript
 // tests/integration/api/orderFlow.test.ts
 describe('Order Flow Integration', () => {
@@ -75,9 +79,11 @@ describe('Order Flow Integration', () => {
 ```
 
 ### E2E Tests (tests/e2e/)
+
 Tests complete user journeys from UI to database.
 
 **Example Structure:**
+
 ```typescript
 // tests/e2e/user-flows/meal-discovery.test.ts
 describe('Meal Discovery Journey', () => {
@@ -95,6 +101,7 @@ describe('Meal Discovery Journey', () => {
 ## 🔧 Test Configuration
 
 ### Jest Configuration (jest.config.js)
+
 ```javascript
 module.exports = {
   preset: 'ts-jest',
@@ -121,6 +128,7 @@ module.exports = {
 ```
 
 ### Test Scripts (package.json)
+
 ```json
 {
   "scripts": {
@@ -145,6 +153,7 @@ module.exports = {
 ## 🛠️ Test Utilities
 
 ### Mock Data Factory (tests/fixtures/factory.ts)
+
 ```typescript
 export const createMockUser = (overrides = {}) => ({
   id: '123',
@@ -165,6 +174,7 @@ export const createMockMeal = (overrides = {}) => ({
 ```
 
 ### Test Helpers (tests/utils/helpers.ts)
+
 ```typescript
 export const setupTestDatabase = async () => {
   // Initialize test database
@@ -182,6 +192,7 @@ export const mockAuthenticatedUser = (user = createMockUser()) => {
 ## 🚀 Running Tests
 
 ### Local Development
+
 ```bash
 # Run all tests
 npm test
@@ -199,6 +210,7 @@ npm run test:coverage
 ```
 
 ### CI/CD Pipeline
+
 ```bash
 # Run tests in CI environment
 npm run test:ci
@@ -207,6 +219,7 @@ npm run test:ci
 ## 📋 Test Checklist
 
 For every new feature:
+
 - [ ] Unit tests for all public functions
 - [ ] Integration tests for service interactions
 - [ ] E2E tests for critical user paths
@@ -236,12 +249,14 @@ When creating tests:
 ## 🔍 Troubleshooting
 
 ### Common Issues
+
 - **Tests timing out**: Increase timeout in jest.config.js
 - **Database connection errors**: Check test database setup
 - **Mock not working**: Verify mock placement and implementation
 - **Coverage too low**: Add tests for uncovered branches
 
 ### Debug Commands
+
 ```bash
 # Run tests with debugging
 npm test -- --verbose

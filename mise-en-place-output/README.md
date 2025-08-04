@@ -29,11 +29,13 @@ A comprehensive platform connecting home cooks with local food enthusiasts, enab
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ and npm/yarn
 - PostgreSQL 14+
 - Redis (for caching)
 
 ### Setup
+
 ```bash
 # Clone and install dependencies
 git clone <repository-url>
@@ -130,6 +132,7 @@ See the [Context Cards](./context-cards/) directory for detailed component docum
 ## 🆘 Support
 
 For issues and questions:
+
 - Check the [Troubleshooting Guide](./docs/guides/troubleshooting.md)
 - Review existing [Context Cards](./context-cards/) for component details
 - Consult the [API Documentation](./docs/api/) for integration help
